@@ -82,7 +82,7 @@ namespace NorthwindDAO.Src.DAO
         }
         /*!
          * Converte tipo dado para string
-         *
+         */
         protected string GetSQLString(object item, PropertyInfo pi)
         {
             object value = pi.GetValue(item);
