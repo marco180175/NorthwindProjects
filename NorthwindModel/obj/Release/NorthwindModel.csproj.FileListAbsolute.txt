@@ -1,0 +1,5 @@
+D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindModel\bin\Release\NorthwindModel.dll
+D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindModel\bin\Release\NorthwindModel.pdb
+D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindModel\obj\Release\NorthwindModel.csproj.CoreCompileInputs.cache
+D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindModel\obj\Release\NorthwindModel.dll
+D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindModel\obj\Release\NorthwindModel.pdb

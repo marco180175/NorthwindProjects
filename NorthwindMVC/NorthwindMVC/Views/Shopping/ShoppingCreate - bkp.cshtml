@@ -1,0 +1,84 @@
+﻿@model NorthwindModel.Models.ShoppingCart
+@using NorthwindBusiness.Src;
+@using NorthwindModel.Models;
+
+
+
+<!DOCTYPE html>
+@{
+var customers = new CustomersBusiness();
+    var table = customers.Get();
+    Customer item = new Customer() { CustomerID = "Select...", CompanyName = "Select..." };
+    table.Insert(0, item);
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShoppingCreate</title>
+
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>ShoppingCart</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.CustomerID, new SelectList(table), new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    <span id="text-counter">0/100</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $('#Description').keyup(function () {
+            //alert('testo digitado')
+            var text = $(this).val();
+            var maxlen = 100;
+            var count = text.length;
+            for (var i = 0; i < text.length; i++) {
+                if (text[i] == '\n')
+                    count++;
+            }
+            $('#text-counter').html(count + '/' + maxlen);
+        });
+    </script>
+
+</body>
+</html>
+
+

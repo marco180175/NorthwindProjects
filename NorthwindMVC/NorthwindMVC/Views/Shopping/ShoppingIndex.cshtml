@@ -1,0 +1,57 @@
+﻿@model IEnumerable<NorthwindModel.Models.ShoppingCart>
+
+@{
+    ViewBag.Title = "ShoppingIndex";
+}
+
+<h2>ShoppingIndex</h2>
+
+<p>
+    @Html.ActionLink("Create New", "ShoppingCreate", "Shopping")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ShoppingCartID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Count)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShoppingCartID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomerID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Count)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "ShoppingEdit", new { id = item.ShoppingCartID }) |
+            @Html.ActionLink("List", "ShoppingItemIndex", "ShoppingItem", new { id = item.ShoppingCartID }, null) |
+            @Html.ActionLink("Delete", "ShoppingDelete", new { id = item.ShoppingCartID })
+        </td>
+    </tr>
+}
+
+</table>

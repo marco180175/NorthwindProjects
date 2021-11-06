@@ -1,0 +1,56 @@
+﻿@model List<NorthwindModel.Models.Category>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Northwind application ASP.NET MVC</h1>
+</div>
+<div style="padding:5px 0;">
+    @{
+        List<SelectListItem> list = new List<SelectListItem>();
+        list.Add(new SelectListItem { Value = "0", Text = "All" });
+        foreach (var item in Model)
+        {
+            list.Add(new SelectListItem { Value = item.CategoryID.ToString(), Text = item.CategoryName });
+        }
+        @Html.DropDownList("ddlCategory1", list, new { @class = "form-control" })
+    }
+
+</div>
+<div style="width:100%;">
+    @{
+        WebGrid grid = new WebGrid(Model);
+        @grid.GetHtml(
+             tableStyle: "grid",
+             fillEmptyRows: false,
+             headerStyle: "gvHeading",
+             alternatingRowStyle: "gvAlternateRow",
+             rowStyle: "gvRow",
+             footerStyle: "gvFooter",
+             mode: WebGridPagerModes.All,             
+             columns: new[] {
+             grid.Column("CategoryID", header: "Category ID "),
+             grid.Column("CategoryName", header: "Category Name "),                          
+             grid.Column("Description", header: "Description ")
+                             })
+    }
+</div>
+
+<div id="DivToAppendPartialView"></div>
+
+<script type="text/javascript">
+    function OpenCreatePopup() {
+        var div = $("#DivToAppendPartialView");
+        div.load("/Produtos/Create", function () {
+            div.dialog({
+                modal: true,
+                width: 500,
+                height: 438,
+                title: "Incluir Novo Produto",
+                resizable: false
+            });
+        });
+    }
+</script>

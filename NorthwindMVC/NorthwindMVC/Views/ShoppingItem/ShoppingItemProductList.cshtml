@@ -1,0 +1,65 @@
+﻿@model IEnumerable<NorthwindModel.Models.Product>
+@using NorthwindModel.Models;
+@{
+    ViewBag.Title = "ShoppingItemProductList";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";
+}
+
+<h2>ShoppingItemProductList</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductID)
+        </th>        
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </th>        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductID)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>           
+            <td>
+                @{
+                    if (ViewBag.SourceID == 0)
+                    { 
+                        <input type="button" value="Select" onclick="selectProductToCreate('@item.ProductID')" />
+                    }
+                    else
+                    { 
+                        <input type="button" value="Select" onclick="selectProductToEdit('@ViewBag.ShoppingCartItemID','@item.ProductID')" />
+                    }
+                }                
+            </td>
+        </tr>
+    }
+</table>
+@section Scripts {
+    <script type="text/javascript">
+        //
+        function selectProductToCreate(id) {
+            var url = "/ShoppingItem/ShoppingItemCreate?id=" + id;
+            location.href = url;
+        }
+        //
+        function selectProductToEdit(id1, id2) {
+            var url = "/ShoppingItem/ShoppingItemEdit?id1=" + id1 + "&id2=" + id2;
+            location.href = url;
+        }
+    </script>
+}

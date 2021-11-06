@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DE6A5EE2-95E7-4493-8295-0C75A6DE9A3E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NorthwindBusiness</RootNamespace>
+    <AssemblyName>NorthwindBusiness</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Src\BooleanBusiness.cs" />
+    <Compile Include="Src\CategoriesBusiness.cs" />
+    <Compile Include="Src\CollectionHelper.cs" />
+    <Compile Include="Src\ICustomBusiness.cs" />
+    <Compile Include="Src\CustomersBusiness.cs" />
+    <Compile Include="Src\EmployeesBusiness.cs" />
+    <Compile Include="Src\OrderDetailsBusiness.cs" />
+    <Compile Include="Src\OrdersBusiness.cs" />
+    <Compile Include="Src\ProcedureBusiness.cs" />
+    <Compile Include="Src\ProductsBusiness.cs" />
+    <Compile Include="Src\ReportersBusiness.cs" />
+    <Compile Include="Src\ShippersBusiness.cs" />
+    <Compile Include="Src\ShoppingCartBusiness.cs" />
+    <Compile Include="Src\SuppliersBusiness.cs" />
+    <Compile Include="Src\ValidaDataBrasil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NorthwindDbDAOLibrary\NorthwindDAOLibrary\NorthwindDAO.csproj">
+      <Project>{b50cc2d7-cf8b-43f3-bb61-491d21bc8228}</Project>
+      <Name>NorthwindDAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NorthwindModel\NorthwindModel.csproj">
+      <Project>{cd075c51-e3f8-4cdc-94a0-7024a856934d}</Project>
+      <Name>NorthwindModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
