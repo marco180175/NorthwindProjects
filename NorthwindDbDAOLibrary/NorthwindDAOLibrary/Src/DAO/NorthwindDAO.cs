@@ -81,28 +81,8 @@ namespace NorthwindDAO.Src.DAO
             }
         }
         /*!
-         * 
-         */
-        //private string GetSQLString(object item, PropertyInfo pi)
-        //{
-        //    if (pi.PropertyType == typeof(DateTime))
-        //        return "'" + ((DateTime)pi.GetValue(item)).ToString(SQL_DATE_FORMAT) + "'";
-        //    else if (pi.PropertyType == typeof(string))
-        //        return "'" + pi.GetValue(item) + "'";
-        //    else if (pi.PropertyType == typeof(decimal))
-        //        return ((decimal)pi.GetValue(item)).ToString(nfi);
-        //    else if (pi.PropertyType == typeof(double))
-        //        return ((double)pi.GetValue(item)).ToString(nfi);
-        //    else if (pi.PropertyType == typeof(bool))
-        //    {
-        //        if ((bool)pi.GetValue(item))
-        //            return "1";
-        //        else
-        //            return "0";
-        //    }
-        //    else
-        //        return pi.GetValue(item).ToString();//Byte,Int16,Int32,Int64
-        //}    
+         * Converte tipo dado para string
+         *
         protected string GetSQLString(object item, PropertyInfo pi)
         {
             object value = pi.GetValue(item);
@@ -113,23 +93,26 @@ namespace NorthwindDAO.Src.DAO
             else
             {
                 //
-                if (pi.PropertyType == typeof(DateTime))
-                    return "'" + ((DateTime)pi.GetValue(item)).ToString(SQL_DATE_FORMAT) + "'";
-                if (pi.PropertyType == typeof(DateTime?))
-                    return "'" + ((DateTime)value).ToString(SQL_DATE_FORMAT) + "'";
+                if (pi.PropertyType == typeof(DateTime)||pi.PropertyType == typeof(DateTime?))
+                    return "'" + ((DateTime)value).ToString(SQL_DATE_FORMAT) + "'";                
                 //
-                if (pi.PropertyType == typeof(decimal))
-                    return ((decimal)pi.GetValue(item)).ToString(nfi);
-                if (pi.PropertyType == typeof(decimal?))
+                if (pi.PropertyType == typeof(decimal)|| pi.PropertyType == typeof(decimal?))
                     return ((decimal)pi.GetValue(item)).ToString(nfi);
                 //
-                if (pi.PropertyType == typeof(double))
-                    return ((double)pi.GetValue(item)).ToString(nfi);
-                if (pi.PropertyType == typeof(double?))
-                    return ((double)pi.GetValue(item)).ToString(nfi);
+                if (pi.PropertyType == typeof(double)||pi.PropertyType == typeof(double?))
+                    return ((double)pi.GetValue(item)).ToString(nfi);                 
+                //
+                if (pi.PropertyType == typeof(Byte) || pi.PropertyType == typeof(Byte?))
+                    return ((Byte)pi.GetValue(item)).ToString();
                 //
                 if (pi.PropertyType == typeof(Int16) || pi.PropertyType == typeof(Int16?))
                     return ((Int16)pi.GetValue(item)).ToString();
+                //
+                if (pi.PropertyType == typeof(Int32) || pi.PropertyType == typeof(Int32?))
+                    return ((Int32)pi.GetValue(item)).ToString();
+                //
+                if (pi.PropertyType == typeof(Int64) || pi.PropertyType == typeof(Int64?))
+                    return ((Int64)pi.GetValue(item)).ToString();
                 //
                 if (pi.PropertyType == typeof(bool))
                 {
@@ -155,8 +138,8 @@ namespace NorthwindDAO.Src.DAO
                     else
                         return "'" + ((string)value).Replace("'", " ") + "'";
                 }
-                //Byte,Int16,Int32,Int64
-                return pi.GetValue(item).ToString();
+
+                return "null";
             }
         }
         /*!
