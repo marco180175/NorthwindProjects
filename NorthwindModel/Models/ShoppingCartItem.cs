@@ -7,8 +7,8 @@ namespace NorthwindModel.Models
     {
         Int32 ShoppingCartItemID { get; set; }
         Int32 ShoppingCartID { get; set; }        
-        Int32 ProductID { get; set; }        
-        Int32 Quantity { get; set; }        
+        Int32 ProductID { get; set; }
+        Double Quantity { get; set; }        
         Decimal UnitPrice { get; set; }
     }
 
@@ -27,7 +27,7 @@ namespace NorthwindModel.Models
         public Int32 ProductID { get; set; }
 
         [Range(minimum:1,maximum:10,ErrorMessage ="Valor deve estar entre 1 e 10")]        
-        public Int32 Quantity { get; set; }
+        public Double Quantity { get; set; }
 
         [Required(ErrorMessage = "Selecione preço unitario do produto")]
         public Decimal UnitPrice { get; set; } 

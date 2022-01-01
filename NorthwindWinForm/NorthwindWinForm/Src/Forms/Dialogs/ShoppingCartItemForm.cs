@@ -43,7 +43,7 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
                 productID = cartItem.ProductID;
                 shoppingCartItem.ShoppingCartItemID = cartItem.ShoppingCartItemID;
                 shoppingCartItem.ProductID = cartItem.ProductID;
-                numericUpDown1.Value = cartItem.Quantity;
+                numericUpDown1.Value = Convert.ToDecimal(cartItem.Quantity);
                 fEdit = true;
                 var product = products.SelectItem(productID);
                 var table = categories.SelectList();
@@ -75,7 +75,7 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
             {
                 shoppingCartItem.ProductID = product.ProductID;
                 shoppingCartItem.UnitPrice = product.UnitPrice;
-                shoppingCartItem.Quantity = Convert.ToInt32(numericUpDown1.Value);
+                shoppingCartItem.Quantity = Convert.ToDouble(numericUpDown1.Value);
                 DialogResult = DialogResult.OK;
             }
             else

@@ -30,7 +30,7 @@ namespace NorthwindBusiness.Src
             get { return cartItem.ProductID; }
             set { cartItem.ProductID = value; }
         }
-        public Int32 Quantity
+        public Double Quantity
         {
             get { return cartItem.Quantity; }
             set { cartItem.Quantity = value; }
@@ -42,7 +42,7 @@ namespace NorthwindBusiness.Src
         }
         public Double Total
         {
-            get { return (Double)(cartItem.Quantity * cartItem.UnitPrice); }
+            get { return (Double)(cartItem.Quantity * Convert.ToDouble(cartItem.UnitPrice)); }
         }
     }
 
