@@ -70,7 +70,7 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
                 listValidate.Add("Description is empty.");
             }
             //
-            if (tbCategoryName.Text.Length > 50)
+            if (tbCategoryName.Text.Length > 15)
             {
                 isValidate = false;
                 listValidate.Add("CategoryName deve ter maximo 15.");
