@@ -48,7 +48,8 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
 
         private void btOk_Click(object sender, EventArgs e)
         {
-            if(Validate())
+            Validate();
+            if (isValidate)
             {
                 Customer customer = (Customer)cbCostumers.SelectedItem;
                 shoppingCart.CustomerID = customer.CustomerID;
@@ -56,21 +57,28 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
                 shoppingCart.Description = tbDescription.Text;
                 DialogResult = DialogResult.OK;
             }
+            else
+            {
+                var validationSumary = new ValidateSummaryDialog(listValidate);
+                validationSumary.ShowDialog(this);
+            }
         }
-
-        private new bool Validate()
+        private bool isValidate = false;
+        List<string> listValidate = new List<string>();
+        private new void Validate()
         {
+            listValidate.Clear();
+            isValidate = true;
             if (cbCostumers.Text == STR_SELECT)
             {
-                MessageBox.Show("Costumer field need by selected.");
-                return false;
+                listValidate.Add("Costumer field need by selected.");
+                isValidate = false;
             }
             if (tbDescription.Text.Length > tbDescription.MaxLength)
             {
-                MessageBox.Show("Maximum caracteres in description.");
-                return false;
-            }
-            return true;
+                listValidate.Add("Maximum caracteres in description.");
+                isValidate = false;
+            }            
         }
 
         private void btCancel_Click(object sender, EventArgs e)
