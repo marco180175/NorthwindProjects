@@ -117,7 +117,7 @@ namespace NorthwindWinForm.Src.Forms
                         filter = string.Format("{0}={1}", cbxFilterName.Text, boolItem.Index);                        
                     }; break;
             }
-            label1.Text = filter;
+            //label1.Text = filter;
             if(!string.IsNullOrEmpty(filter))
                 dataGridView1.DataSource = products.SelectList(filter);
         }
