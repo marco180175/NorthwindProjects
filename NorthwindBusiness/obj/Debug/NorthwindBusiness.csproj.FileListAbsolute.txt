@@ -11,10 +11,5 @@ D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindWinForm\NorthwindBusines
 D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindWinForm\NorthwindBusiness\obj\Debug\NorthwindBusiness.csproj.CopyComplete
 D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindWinForm\NorthwindBusiness\obj\Debug\NorthwindBusiness.dll
 D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindWinForm\NorthwindBusiness\obj\Debug\NorthwindBusiness.pdb
-D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindBusiness\bin\Debug\NorthwindBusiness.dll
-D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindBusiness\bin\Debug\NorthwindBusiness.pdb
-D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindBusiness\bin\Debug\NorthwindDAOLibrary.dll
-D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindBusiness\bin\Debug\NorthwindModel.dll
-D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindBusiness\bin\Debug\NorthwindDAOLibrary.pdb
-D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindBusiness\bin\Debug\NorthwindModel.pdb
-D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindBusiness\bin\Debug\System.Web.Mvc.dll
+D:\Projects\VisualStudio2017\NorthwindProjectsOutput\bin\Debug\NorthwindBusiness.dll
+D:\Projects\VisualStudio2017\NorthwindProjectsOutput\bin\Debug\NorthwindBusiness.pdb

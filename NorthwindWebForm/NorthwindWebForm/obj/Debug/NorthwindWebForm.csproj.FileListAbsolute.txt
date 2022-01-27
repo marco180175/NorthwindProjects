@@ -59,3 +59,6 @@ C:\ProjetosTeste\NorthwindWebForm\NorthwindWebForm\bin\itextsharp.xtra.dll
 C:\ProjetosTeste\NorthwindWebForm\NorthwindWebForm\bin\Microsoft.ReportViewer.WebForms.dll
 C:\ProjetosTeste\NorthwindWebForm\NorthwindWebForm\obj\Debug\RdlCompile.cache
 C:\ProjetosTeste\NorthwindWebForm\NorthwindWebForm\obj\Debug\RdlCompile.compiled
+D:\Projects\VisualStudio2017\NorthwindProjectsOutput\bin\NorthwindWebForm.dll.config
+D:\Projects\VisualStudio2017\NorthwindProjectsOutput\bin\NorthwindWebForm.dll
+D:\Projects\VisualStudio2017\NorthwindProjectsOutput\bin\NorthwindWebForm.pdb

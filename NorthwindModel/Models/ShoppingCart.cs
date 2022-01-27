@@ -29,7 +29,7 @@ namespace NorthwindModel.Models
         
         public String CustomerID { get; set; }//Cliente
         [Required]
-        [DataBrasil(ErrorMessage = "Data inválida", DataRequerida = true)]
+        //[DataBrasil(ErrorMessage = "Data inválida", DataRequerida = true)]
         //[DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}",ApplyFormatInEditMode = true)]
         //[DataType(DataType.Date)]
         //Data da compra

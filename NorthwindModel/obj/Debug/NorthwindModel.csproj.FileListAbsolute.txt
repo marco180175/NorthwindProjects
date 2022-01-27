@@ -3,5 +3,5 @@ C:\ProjetosTeste\NorthwindModel\bin\Debug\NorthwindModel.pdb
 C:\ProjetosTeste\NorthwindModel\obj\Debug\NorthwindModel.csproj.CoreCompileInputs.cache
 C:\ProjetosTeste\NorthwindModel\obj\Debug\NorthwindModel.dll
 C:\ProjetosTeste\NorthwindModel\obj\Debug\NorthwindModel.pdb
-D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindModel\bin\Debug\NorthwindModel.dll
-D:\Projects\VisualStudio2017\NorthwindProjects\NorthwindModel\bin\Debug\NorthwindModel.pdb
+D:\Projects\VisualStudio2017\NorthwindProjectsOutput\bin\Debug\NorthwindModel.dll
+D:\Projects\VisualStudio2017\NorthwindProjectsOutput\bin\Debug\NorthwindModel.pdb

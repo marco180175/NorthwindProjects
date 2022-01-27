@@ -57,21 +57,21 @@
 
                             <asp:TemplateField ShowHeader="False">
                                 <ItemTemplate>                             
-                                    <asp:Button ID="btEdit" runat="server" CausesValidation="false" CommandName="Edit"
+                                    <asp:LinkButton ID="btEdit" runat="server" CausesValidation="false" CommandName="Edit"
                                             Text="Edit" CommandArgument='<%# Eval("ShoppingCartID") %>' />
                                 </ItemTemplate>                                            
                             </asp:TemplateField>
                 
                             <asp:TemplateField ShowHeader="False">
                                 <ItemTemplate>                             
-                                    <asp:Button ID="btList" runat="server" CausesValidation="false" CommandName="List"
+                                    <asp:LinkButton ID="btList" runat="server" CausesValidation="false" CommandName="List"
                                             Text="List" CommandArgument='<%# Eval("ShoppingCartID") %>' />
                                 </ItemTemplate>                                            
                             </asp:TemplateField>
 
                             <asp:TemplateField ShowHeader="False">
                                 <ItemTemplate>                             
-                                    <asp:Button ID="btDelete" runat="server" CausesValidation="false" CommandName="Delete"
+                                    <asp:LinkButton ID="btDelete" runat="server" CausesValidation="false" CommandName="Delete"
                                         OnClientClick ="if (!window.confirm('Confirms the deletion of this record ?')) return false;"
                                         Text="Delete" CommandArgument='<%# Eval("ShoppingCartID") %>' />
                                 </ItemTemplate>                                            

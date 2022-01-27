@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ShoppingCart.aspx.cs" Inherits="NorthwindWebForm.ShoppingCart" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<%@ Register Src="~/UserControl/ValidacaoModalPopup.ascx" TagPrefix="uc1" TagName="ValidacaoModalPopup" %>
+<%@ Register Src="~/UserControl/SumarioValidacaoModalPopup.ascx" TagPrefix="uc1" TagName="ValidacaoModalPopup" %>
 <%@ Register Src="~/UserControl/ContaCaracter.ascx" TagPrefix="uc1" TagName="ContaCaracter" %>
 
 

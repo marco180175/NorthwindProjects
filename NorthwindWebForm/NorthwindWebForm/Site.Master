@@ -38,15 +38,26 @@
             </Scripts>
         </asp:ScriptManager>
 
+        <asp:Menu ID="Menu1" runat="server" Orientation="Horizontal">
+            <Items>
+                <asp:MenuItem Text="Tables" Value="Tables">
+                    <asp:MenuItem NavigateUrl="~/CategoriesForm.aspx" Text="Category" Value="Category"></asp:MenuItem>
+                    <asp:MenuItem NavigateUrl="~/ProductsForm.aspx" Text="Products" Value="Products"></asp:MenuItem>
+                </asp:MenuItem>
+                <asp:MenuItem Text="Shopping" Value="Shopping">
+                    <asp:MenuItem NavigateUrl="~/Shopping.aspx" Text="ShoppingCarts" Value="ShoppingCarts"></asp:MenuItem>
+                </asp:MenuItem>
+            </Items>
+        </asp:Menu>
+
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                   
+                        
                     </button>
                     <a class="navbar-brand" runat="server" href="~/">Application name</a>
                 </div>
@@ -55,8 +66,8 @@
                         <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
-                        <li><a runat="server" href="~/Tables">Tables</a></li>
-                        <li><a runat="server" href="~/Shopping">Shopping</a></li>
+                        
+                        
                     </ul>
                 </div>
             </div>
