@@ -20,15 +20,16 @@ namespace NorthwindBusiness.Src
         {
             return productsDAO.ProductsSelect(categoryID);
         }
+
         public List<object> SelectList()
         {
-            List<Product> list = productsDAO.ProductsSelect();            
+            List<ProductQuery> list = productsDAO.ProductsSelectQuery();            
             return list.Cast<object>().ToList();
         }
 
-        public List<Product> SelectList(string filter)
+        public List<ProductQuery> SelectList(string filter)
         {
-            return productsDAO.ProductsSelect(filter);
+            return productsDAO.ProductsSelectQuery(filter);
         }
 
         public void InsertItem(object item)

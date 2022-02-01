@@ -10,6 +10,7 @@ namespace NorthwindBusiness.Src
     {
         public bool Value { get; set; }
         public int Index { get; set; }
+        public string Name { get; set; }
         public override string ToString()
         {
             return Value.ToString();
@@ -22,8 +23,8 @@ namespace NorthwindBusiness.Src
         public BooleanBusiness()
         {
             list = new List<BoolItem>();
-            list.Add(new BoolItem() { Value = true, Index = 1 });
-            list.Add(new BoolItem() { Value = false, Index = 0 });
+            list.Add(new BoolItem() { Value = true, Index = 1 ,Name="True"});
+            list.Add(new BoolItem() { Value = false, Index = 0, Name = "False" });
         }
         public List<BoolItem> SelectList()
         {

@@ -13,10 +13,15 @@ namespace NorthwindWebForm
     {
         private ProductsBusiness products = new ProductsBusiness();
         private int id;
+        private Product product;
         protected void Page_Load(object sender, EventArgs e)
-        {
-            Product product;
+        {            
             id = Convert.ToInt32(Request.QueryString["id"]);
+            //
+            if (id == 0)
+                product = new Product();
+            else
+                product = (Product)products.SelectItem(id);
             if (!IsPostBack)
             {
                 var supplier = new SuppliersBusiness();
@@ -32,13 +37,9 @@ namespace NorthwindWebForm
                 ddlCategory.DataValueField = "CategoryID";
                 ddlCategory.DataBind();
                 ddlCategory.Items.Insert(0, new ListItem("Select", "-1"));
+                
                 //
-                if (id == -1)                
-                    product = new Product();                
-                else
-                    product = (Product)products.SelectItem(id);
-                //
-                SetProductToField(product);
+                SetProductToField();
             }
         }
 
@@ -53,28 +54,32 @@ namespace NorthwindWebForm
         }
 
         protected void btSave_Click(object sender, EventArgs e)
-        {
-            Product product;
+        {     
+            Validate();
             if (IsValid)
             {
-                if (id == -1)
+                if (id == 0)
                 {
                     product = new Product();
-                    GetFieldToProduct(product);
+                    GetFieldToProduct();
                     products.InsertItem(product);
                 }
                 else
                 {
                     product = (Product)products.SelectItem(id);
-                    GetFieldToProduct(product);
+                    GetFieldToProduct();
                     products.UpdateItem(product);
                 }                    
                 //
-                Response.Redirect("ProductTable.aspx");
+                Response.Redirect("ProductsForm.aspx");
+            }
+            else
+            {
+                ctlValidacaoModalPopup1.Show(Page);
             }
         }
 
-        private void SetProductToField(Product product)
+        private void SetProductToField()
         {
             txbProductName.Text = product.ProductName;
             ddlCategory.SelectedValue = product.CategoryID.ToString();
@@ -87,7 +92,7 @@ namespace NorthwindWebForm
             ckbDiscontinued.Checked = product.Discontinued;
         }
 
-        private void GetFieldToProduct(Product product)
+        private void GetFieldToProduct()
         {
             product.ProductName = txbProductName.Text ;
             product.CategoryID = Convert.ToInt32(ddlCategory.SelectedValue);
@@ -103,7 +108,7 @@ namespace NorthwindWebForm
         protected void btExit_Click(object sender, EventArgs e)
         {
             //
-            Response.Redirect("ProductTable.aspx");
+            Response.Redirect("ProductsForm.aspx");
         }
     }
 }

@@ -16,16 +16,18 @@ namespace NorthwindWebForm
         private int shoppingCartID;
         private NorthwindModel.Models.ShoppingCart shoppingCart;
         protected void Page_Load(object sender, EventArgs e)
-        {            
+        {
             //
             shoppingCartID = Convert.ToInt32(Request.QueryString["id"]);
-            if (shoppingCartID == -1)
+            if (shoppingCartID == 0)
                 shoppingCart = new NorthwindModel.Models.ShoppingCart();
             else
                 shoppingCart = (NorthwindModel.Models.ShoppingCart)shoppingCartList.SelectItem(shoppingCartID);
             //
             if (!IsPostBack)
             {
+                
+
                 var customers = new CustomersBusiness();
                 var list = customers.SelectList();
 
@@ -34,20 +36,20 @@ namespace NorthwindWebForm
                 ddlCustomerID.DataValueField = "CustomerID";
                 ddlCustomerID.DataBind();
                 ddlCustomerID.Items.Insert(0, "Select...");
-                ddlCustomerID.SelectedValue = shoppingCart.CustomerID;
-                if(shoppingCart.PurchaseDate.HasValue)
-                    tbDate.Text = shoppingCart.PurchaseDate.Value.ToString("dd/MM/yyyy");
-                tbDescription.Text = shoppingCart.Description;
-                //string function = string.Format("counterCharacter('{0}','{1}',{2})",
-                //    tbDescription.ClientID,
-                //    lbDescriptionCount.ClientID,
-                //    tbDescription.MaxLength);
-                //tbDescription.Attributes["OnKeyUp"] = function;
+                              
                 ContaCaracter1.SetInput(tbDescription);
-
+                SetPropertiesItem();
             }
             //
             //lbDescriptionCount.Text = string.Format("{0} / {1} caracteres", tbDescription.Text.Length, tbDescription.MaxLength);            
+        }
+
+        private void SetPropertiesItem()
+        {
+            ddlCustomerID.SelectedValue = shoppingCart.CustomerID;
+            if (shoppingCart.PurchaseDate.HasValue)
+                tbDate.Text = shoppingCart.PurchaseDate.Value.ToString("dd/MM/yyyy");
+            tbDescription.Text = shoppingCart.Description;
         }
 
         protected void btSave_Click(object sender, EventArgs e)
@@ -58,7 +60,7 @@ namespace NorthwindWebForm
                 shoppingCart.CustomerID = ddlCustomerID.SelectedValue;
                 shoppingCart.PurchaseDate = Convert.ToDateTime(tbDate.Text);
                 shoppingCart.Description = tbDescription.Text;
-                if (shoppingCartID == -1)
+                if (shoppingCartID == 0)
                     shoppingCartList.InsertItem(shoppingCart);
                 else
                     shoppingCartList.UpdateItem(shoppingCart);

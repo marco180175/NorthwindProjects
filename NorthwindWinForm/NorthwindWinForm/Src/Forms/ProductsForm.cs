@@ -16,9 +16,9 @@ namespace NorthwindWinForm.Src.Forms
     public partial class ProductsForm : Form
     {
         private ProductsBusiness products = new ProductsBusiness();
-        private SuppliersBusiness suppliers = new SuppliersBusiness();
-        private CategoriesBusiness categories = new CategoriesBusiness();
-        private BooleanBusiness booleans = new BooleanBusiness();
+        
+        
+        
         private DrawDataGridViewButtonsManager drawDataGridViewButtonsManager;
         public ProductsForm(Control parent)
         {
@@ -32,7 +32,7 @@ namespace NorthwindWinForm.Src.Forms
             dataGridView1.DataSource = products.SelectList();
             dataGridView1.Columns[ProductProperties.UNITS_IN_STOCK].Visible = false;
             dataGridView1.Columns[ProductProperties.UNITS_ON_ORDER].Visible = false;
-            dataGridView1.Columns[ProductProperties.REORDER_LEVEL].Visible = false;
+            //dataGridView1.Columns[ProductProperties.REORDER_LEVEL].Visible = false;
             //
             drawDataGridViewButtonsManager = new DrawDataGridViewButtonsManager(dataGridView1);
             drawDataGridViewButtonsManager.addEditButton();
@@ -76,50 +76,72 @@ namespace NorthwindWinForm.Src.Forms
 
         private void cbxFilterName_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cbxFilterValue.DataSource = null;
             cbxFilterValue.Items.Clear();
-            switch ( cbxFilterName.SelectedIndex )
+            //switch ( cbxFilterName.SelectedIndex )
+            //{
+            //    case 1://suppliers
+            //        {                        
+            //            SuppliersBusiness suppliers = new SuppliersBusiness();
+            //            cbxFilterValue.Items.AddRange(suppliers.SelectList().ToArray());
+            //        }; break;
+            //    case 2://categories
+            //        {
+            //            CategoriesBusiness categories = new CategoriesBusiness();
+            //            cbxFilterValue.Items.AddRange(categories.SelectList().ToArray());
+            //        }; break;
+            //    case 3://booleans
+            //        {
+            //            BooleanBusiness booleans = new BooleanBusiness();
+            //            cbxFilterValue.Items.AddRange(booleans.SelectList().ToArray());
+            //        }; break;
+            //}
+            //if(cbxFilterValue.Items.Count > 0)
+            //    cbxFilterValue.SelectedIndex = 0;
+
+            switch (cbxFilterName.SelectedIndex)
             {
                 case 1://suppliers
-                    {                        
-                        cbxFilterValue.Items.AddRange(suppliers.SelectList().ToArray());
+                    {
+                        SuppliersBusiness suppliers = new SuppliersBusiness();
+                        cbxFilterValue.DataSource = suppliers.SelectList();
+                        cbxFilterValue.ValueMember = "SupplierID";
+                        cbxFilterValue.DisplayMember = "CompanyName";
                     }; break;
                 case 2://categories
-                    {                        
-                        cbxFilterValue.Items.AddRange(categories.SelectList().ToArray());
+                    {
+                        CategoriesBusiness categories = new CategoriesBusiness();
+                        cbxFilterValue.DataSource = categories.SelectList();
+                        cbxFilterValue.ValueMember = "CategoryID";
+                        cbxFilterValue.DisplayMember = "CategoryName";
                     }; break;
                 case 3://booleans
-                    {                        
-                        cbxFilterValue.Items.AddRange(booleans.SelectList().ToArray());
+                    {
+                        BooleanBusiness booleans = new BooleanBusiness();
+                        cbxFilterValue.DataSource = booleans.SelectList();
+                        cbxFilterValue.ValueMember = "Index";
+                        cbxFilterValue.DisplayMember = "Name";
                     }; break;
             }
-            if(cbxFilterValue.Items.Count > 0)
-                cbxFilterValue.SelectedIndex = 0;
+            //if(cbxFilterValue.Items.Count > 0)
+            //    cbxFilterValue.SelectedIndex = 0;
         }
+
+
 
         private void button2_Click(object sender, EventArgs e)
         {
             string filter= string.Empty;
-            switch(cbxFilterName.SelectedIndex)
+            if(cbxFilterName.SelectedIndex > 0)
             {
-                case 1://suppliers
-                    {
-                        Supplier supplier = (Supplier)cbxFilterValue.SelectedItem;
-                        filter = string.Format("{0}={1}", cbxFilterName.Text, supplier.SupplierID);
-                    }; break;
-                case 2://categories
-                    {
-                        Category category = (Category)cbxFilterValue.SelectedItem;
-                        filter = string.Format("{0}={1}", cbxFilterName.Text, category.CategoryID);                        
-                    }; break;
-                case 3://booleans
-                    {
-                        BoolItem boolItem = (BoolItem)cbxFilterValue.SelectedItem;
-                        filter = string.Format("{0}={1}", cbxFilterName.Text, boolItem.Index);                        
-                    }; break;
+                filter = string.Format("{0}={1}", cbxFilterName.Text, cbxFilterValue.SelectedValue);                
+                if (!string.IsNullOrEmpty(filter))
+                    dataGridView1.DataSource = products.SelectList(filter);
             }
-            //label1.Text = filter;
-            if(!string.IsNullOrEmpty(filter))
-                dataGridView1.DataSource = products.SelectList(filter);
+            else
+            {
+                dataGridView1.DataSource = products.SelectList();
+            }            
         }
     }
 }

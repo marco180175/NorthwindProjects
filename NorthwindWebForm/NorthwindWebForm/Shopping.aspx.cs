@@ -41,7 +41,7 @@ namespace NorthwindWebForm
 
         protected void btAdd_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ShoppingCart.aspx?id=-1");
+            Response.Redirect("ShoppingCart.aspx?id=0");
         }
 
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)

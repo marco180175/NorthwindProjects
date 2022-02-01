@@ -13,13 +13,21 @@ namespace NorthwindDAO.Src.DAO
     {
         private const string PRODUCTS_TABLE_NAME = "Products";
 
-        
 
+        StringBuilder query = new StringBuilder();
         public NorthwindProductsDAO()
             :base()
         {
             Type type = typeof(Product);
             piList.AddRange(type.GetProperties());
+            //            
+            query.AppendLine("select");
+            query.AppendLine("ProductID, ProductName,");
+            query.AppendLine("Suppliers.CompanyName[Supplier],");
+            query.AppendLine("Categories.CategoryName[Category],");
+            query.AppendLine("UnitPrice,UnitsInStock,UnitsOnOrder,Discontinued");
+            query.AppendLine("from Products left join Suppliers on Products.SupplierID = Suppliers.SupplierID");
+            query.AppendLine("left join Categories on Products.CategoryID = Categories.CategoryID");
         }
 
         
@@ -66,6 +74,92 @@ namespace NorthwindDAO.Src.DAO
                                 
                 CloseConnection(connection);
             }
+            return table;
+        }
+        /*!
+         * 
+         */
+        public List<ProductQuery> ProductsSelectQuery()
+        {
+            Type type = typeof(ProductQuery);
+            piList.Clear();
+            piList.AddRange(type.GetProperties());
+
+            var table = new List<ProductQuery>();
+            SqlConnection connection = OpenConnection();
+            if (connection != null)
+            {
+                string cmdText = query.ToString();
+                using (SqlCommand command = new SqlCommand(cmdText, connection))
+                {
+                    try
+                    {
+                        using (SqlDataReader dataReader = command.ExecuteReader())
+                        {
+                            while (dataReader.Read())
+                            {
+                                var item = new ProductQuery();
+                                FieldToProperty(item, dataReader);
+                                table.Add(item);
+                            }
+                            dataReader.Close();
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw ex;
+                    }
+
+                    CloseConnection(connection);
+                }
+            }
+            type = typeof(Product);
+            piList.Clear();
+            piList.AddRange(type.GetProperties());
+            return table;
+        }
+
+        public List<ProductQuery> ProductsSelectQuery(string filter)
+        {
+            Type type = typeof(ProductQuery);
+            piList.Clear();
+            piList.AddRange(type.GetProperties());
+
+            filter = "Products." + filter;
+            var table = new List<ProductQuery>();
+            SqlConnection connection = OpenConnection();
+            if (connection != null)
+            {
+                var subQuery = new StringBuilder();
+                subQuery.Append(query.ToString());
+                subQuery.AppendFormat("WHERE {0}", filter);
+                string cmdText = subQuery.ToString();
+                using (SqlCommand command = new SqlCommand(cmdText, connection))
+                {
+                    try
+                    {
+                        using (SqlDataReader dataReader = command.ExecuteReader())
+                        {
+                            while (dataReader.Read())
+                            {
+                                var item = new ProductQuery();
+                                FieldToProperty(item, dataReader);
+                                table.Add(item);
+                            }
+                            dataReader.Close();
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw ex;
+                    }
+
+                    CloseConnection(connection);
+                }
+            }
+            type = typeof(Product);
+            piList.Clear();
+            piList.AddRange(type.GetProperties());
             return table;
         }
         /*!

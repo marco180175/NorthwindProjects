@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ProductForm.aspx.cs" Inherits="NorthwindWebForm.ProductItem" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-
+<%@ Register Src="~/UserControl/SumarioValidacaoModalPopup.ascx" TagPrefix="uc1" TagName="ValidacaoModalPopup" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -104,11 +104,12 @@
                         <asp:Button ID="btSave" runat="server" Text="Save" OnClick="btSave_Click" />
                     </td>
                     <td>
-                        <asp:Button ID="btExit" runat="server" Text="Edit" OnClick="btExit_Click" />
+                        <asp:Button ID="btExit" runat="server" Text="Exit" OnClick="btExit_Click" />
                     </td>
                 </tr>
             </table>
         </div>
+        <uc1:ValidacaoModalPopup runat="server" id="ctlValidacaoModalPopup1" />
     </form>
 </body>
 </html>
