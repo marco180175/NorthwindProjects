@@ -29,6 +29,8 @@ namespace NorthwindMVC.Controllers
             var categories = new CategoriesBusiness();
             var category = new List<SelectListItem>();
             var list2 = categories.SelectList();
+            foreach (var item in list2)
+                category.Add(new SelectListItem() { Value = item.CategoryID .ToString(), Text = item.CategoryName });
             //
 
             ViewBag.Filters = filters;
@@ -39,8 +41,11 @@ namespace NorthwindMVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult FilterProducts(FilterProducts result)
-        {            
-            return RedirectToAction("IndexProducts", new { filter = result.ToString() });
+        {
+            if (result.FieldName == "0")
+                return RedirectToAction("IndexProducts");
+            else
+                return RedirectToAction("IndexProducts", new { filter = result.ToString() });
         }
         // GET: Products
         public ActionResult IndexProducts(string filter)

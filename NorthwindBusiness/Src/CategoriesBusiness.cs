@@ -8,21 +8,15 @@ using System.Threading.Tasks;
 
 namespace NorthwindBusiness.Src
 {
-    public class CategoriesBusiness : ICustomBusiness
+    public class CategoriesBusiness// : ICustomBusiness
     {
         private NorthwindCategoriesDAO categoriesDAO = new NorthwindCategoriesDAO();
 
-        public List<object> SelectList()
+        public List<Category> SelectList()
         {            
-            try
-            {
-                List<Category> list = categoriesDAO.CategoriesSelect();
-                return list.Cast<object>().ToList();
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }            
+            
+            return categoriesDAO.CategoriesSelect();
+                
         }
 
         public object SelectItem(int id)
