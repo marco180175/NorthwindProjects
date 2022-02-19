@@ -81,7 +81,7 @@ namespace NorthwindBusiness.Src
     /*!
      * Lista de carrinho de compras
      */
-    public class ShoppingCartListBusiness: ICustomBusiness
+    public class ShoppingCartListBusiness//: ICustomBusiness
     {
         private NorthwindShoppingCartsDAO northwindDAO = new NorthwindShoppingCartsDAO();
         public ShoppingCartListBusiness()
@@ -89,16 +89,10 @@ namespace NorthwindBusiness.Src
         /*!
          * Retorna lista de carrinhos e atualiza numero de items
          */
-        public List<object> SelectList()
+        public List<ShoppingCart> SelectList()
         {
             var shoppingCartItemsDAO = new NorthwindShoppingCartItemsDAO();
-            var list = northwindDAO.ShoppingCartsSelect();
-            List<ShoppingCartWrapper> returnList = new List<ShoppingCartWrapper>();
-            foreach (var item in list)
-                returnList.Add(new ShoppingCartWrapper(item));
-            foreach(var item in returnList)
-                item.Count = shoppingCartItemsDAO.ShoppingCartItemCount(item.ShoppingCartID);
-            return returnList.Cast<object>().ToList(); 
+            return northwindDAO.ShoppingCartsSelect();            
         }
         /*!
          * Retorna carrinho 

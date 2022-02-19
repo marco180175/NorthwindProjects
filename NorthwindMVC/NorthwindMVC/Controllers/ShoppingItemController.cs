@@ -31,8 +31,8 @@ namespace NorthwindMVC.Controllers
             {
                 var products = new ProductsBusiness();
                 var product = products.SelectItem(id.Value);
-                item.ProductID = product.ProductID;
-                item.UnitPrice = product.UnitPrice;
+                //item.ProductID = product.ProductID;
+                //item.UnitPrice = product.UnitPrice;
             }
             return View(item);
         }
@@ -67,11 +67,12 @@ namespace NorthwindMVC.Controllers
             ViewBag.SourceID = id2;
             ViewBag.ShoppingCartItemID = id3; 
             var products = new ProductsBusiness();
-            List<Product> list;
-            if (id1 == 0)
-                list = products.SelectList();
-            else
-                list = products.SelectListByCategory(id1);
+            List<Product> list =new List<Product>();
+            
+            //if (id1 == 0)
+            //    list = products.SelectList();
+            //else
+            //    list = products.SelectListByCategory(id1);
             return View(list);
         }
 
@@ -80,15 +81,16 @@ namespace NorthwindMVC.Controllers
             ViewBag.ShoppingCartID = shoppingCartID;
                        
             var shoppingCart = new ShoppingCartBusiness(shoppingCartID);
-            ShoppingCartItem item = shoppingCart.SelectItem(id1);
-            if (id2 != 0)
-            {
-                var products = new ProductsBusiness();
-                var product = products.SelectItem(id2);
-                item.ProductID = product.ProductID;
-                item.UnitPrice = product.UnitPrice;
-            }
-            return View(item);
+            //ShoppingCartItem item = shoppingCart.SelectItem(id1);
+            //if (id2 != 0)
+            //{
+            //    var products = new ProductsBusiness();
+            //    var product = products.SelectItem(id2);
+            //    //item.ProductID = product.ProductID;
+            //    //item.UnitPrice = product.UnitPrice;
+            //}
+            //return View(item);
+            return View();
         }
 
         [HttpPost]

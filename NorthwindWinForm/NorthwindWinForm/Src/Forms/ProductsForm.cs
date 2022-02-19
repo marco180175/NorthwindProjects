@@ -15,9 +15,7 @@ namespace NorthwindWinForm.Src.Forms
 {    
     public partial class ProductsForm : Form
     {
-        private ProductsBusiness products = new ProductsBusiness();
-        
-        
+        private ProductsBusiness products = new ProductsBusiness();       
         
         private DrawDataGridViewButtonsManager drawDataGridViewButtonsManager;
         public ProductsForm(Control parent)
@@ -35,8 +33,8 @@ namespace NorthwindWinForm.Src.Forms
             //dataGridView1.Columns[ProductProperties.REORDER_LEVEL].Visible = false;
             //
             drawDataGridViewButtonsManager = new DrawDataGridViewButtonsManager(dataGridView1);
-            drawDataGridViewButtonsManager.addEditButton();
-            drawDataGridViewButtonsManager.addDeleteButton();
+            drawDataGridViewButtonsManager.AddEditButton();
+            drawDataGridViewButtonsManager.AddDeleteButton();
             //
             cbxFilterName.Items.Add("None");
             cbxFilterName.Items.Add(ProductProperties.SUPPLIER_ID);
@@ -57,21 +55,43 @@ namespace NorthwindWinForm.Src.Forms
                 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int productID = Convert.ToInt32(dataGridView1[ProductProperties.PRODUCT_ID, e.RowIndex].Value);
+            int id = Convert.ToInt32(dataGridView1[ProductProperties.PRODUCT_ID, e.RowIndex].Value);
             if (dataGridView1.Columns[e.ColumnIndex].Name == AppStrings.STR_EDIT)
-            {                
-                drawDataGridViewButtonsManager.eventButtonEdit(productID, products, DialogType.ProductDialog);                                                      
+            {
+                EditProduct(id);                                                      
             }
             if (dataGridView1.Columns[e.ColumnIndex].Name == AppStrings.STR_DELETE)
             {
-                drawDataGridViewButtonsManager.eventButtonDelete(productID, products);
+                DeleteProduct(id);
             }
 
         }
 
+        public void DeleteProduct(int id)
+        {
+            if (MessageBox.Show(string.Format("{0} {1} ?", AppStrings.STR_CONFIRM_DELETE, id), AppStrings.STR_DELETE, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                products.DeleteItem(id);
+                dataGridView1.DataSource = products.SelectList();
+            }
+        }
+
+        public void EditProduct(int id)
+        {
+            var products = new ProductsBusiness();
+            var item = products.SelectItem(id);
+            var dialog = new ProductForm(item);
+            //verificar null
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                products.UpdateItem(dialog.Return);
+                dataGridView1.DataSource = products.SelectList();
+            }
+        }
+
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            drawDataGridViewButtonsManager.drawButtons(e);            
+            drawDataGridViewButtonsManager.DrawButtons(e);            
         }
 
         private void cbxFilterName_SelectedIndexChanged(object sender, EventArgs e)

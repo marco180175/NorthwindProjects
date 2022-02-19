@@ -12,8 +12,8 @@ namespace NorthwindMVC.Controllers
         // GET: DataTable
         public ActionResult ProductsTable()
         {
-            var service = new ProductsBusiness();
-            var table = service.SelectList();
+            var products = new ProductsBusiness();
+            var table = products.SelectList();
             return View(table);
         }
     }

@@ -17,15 +17,11 @@
         <th>
             @Html.DisplayNameFor(model => model.CustomerID)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Count)
-        </th>
+        
         <th></th>
     </tr>
 
@@ -37,15 +33,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.CustomerID)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Count)
-        </td>
+        
         <td>
             @Html.ActionLink("Edit", "ShoppingEdit", new { id = item.ShoppingCartID }) |
             @Html.ActionLink("List", "ShoppingItemIndex", "ShoppingItem", new { id = item.ShoppingCartID }, null) |

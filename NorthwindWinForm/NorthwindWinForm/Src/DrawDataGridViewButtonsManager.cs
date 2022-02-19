@@ -9,16 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NorthwindWinForm.Src
-{
-    public enum DialogType
-    {
-        CategoryDialog,
-        OrderDialog,
-        ProductDialog,
-        ShoppingCartDialog,
-        ShoppingCartItemDialog,
-    }
-
+{    
     public sealed class DrawDataGridViewButtonsManager
     {
         private DataGridView dataGridView;
@@ -28,7 +19,7 @@ namespace NorthwindWinForm.Src
             this.dataGridView = dataGridView;
         }
 
-        public void addEditButton()
+        public void AddEditButton()
         {
             //Button edit
             DataGridViewButtonColumn buttonEdit = new DataGridViewButtonColumn();
@@ -36,7 +27,7 @@ namespace NorthwindWinForm.Src
             dataGridView.Columns.Add(buttonEdit);            
         }
 
-        public void addDeleteButton()
+        public void AddDeleteButton()
         {            
             //Button delete
             DataGridViewButtonColumn buttonDelete = new DataGridViewButtonColumn();
@@ -44,7 +35,7 @@ namespace NorthwindWinForm.Src
             dataGridView.Columns.Add(buttonDelete);
         }
 
-        public void addListButton(EventHandler eventList)
+        public void AddListButton(EventHandler eventList)
         {
             //Button edit
             DataGridViewButtonColumn buttonList = new DataGridViewButtonColumn();
@@ -53,24 +44,24 @@ namespace NorthwindWinForm.Src
             ShowList += new EventHandler(eventList);
         }
 
-        public void drawButtons(DataGridViewCellPaintingEventArgs e)
+        public void DrawButtons(DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex > -1)
             {
                 if (dataGridView.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
                 {
                     if (dataGridView.Columns[e.ColumnIndex].Name == AppStrings.STR_EDIT)
-                        drawStringButtonText(AppStrings.STR_EDIT, dataGridView.Font, e);
+                        DrawStringButtonText(AppStrings.STR_EDIT, dataGridView.Font, e);
                     if (dataGridView.Columns[e.ColumnIndex].Name == AppStrings.STR_DELETE)
-                        drawStringButtonText(AppStrings.STR_DELETE, dataGridView.Font, e);
+                        DrawStringButtonText(AppStrings.STR_DELETE, dataGridView.Font, e);
                     if (dataGridView.Columns[e.ColumnIndex].Name == AppStrings.STR_LIST)
-                        drawStringButtonText(AppStrings.STR_LIST, dataGridView.Font, e);
+                        DrawStringButtonText(AppStrings.STR_LIST, dataGridView.Font, e);
                     e.Handled = true;
                 }
             }
         }
 
-        private void drawStringButtonText(string text,Font font, DataGridViewCellPaintingEventArgs e)
+        private void DrawStringButtonText(string text,Font font, DataGridViewCellPaintingEventArgs e)
         {
             e.Paint(e.CellBounds, DataGridViewPaintParts.All);
             SizeF sizeStr = e.Graphics.MeasureString(text, font);
@@ -79,61 +70,18 @@ namespace NorthwindWinForm.Src
             e.Graphics.DrawString(text, font, new SolidBrush(Color.Black), x, y);
         }
 
-        private event EventHandler ShowList;
+        private event EventHandler ShowList;       
 
-        private IDialogs dialogFactory(int id, ICustomBusiness business, DialogType dialogType)
+        public void EventButtonList()
         {
-            object item = business.SelectItem(id);
-            switch (dialogType)
-            {
-                case DialogType.CategoryDialog:
-                    return new CategoryForm(item);
-                    
-                case DialogType.OrderDialog:
-                    return new OrderFieldForm(item);
-                    
-                case DialogType.ProductDialog:
-                    return new ProductForm(item);
-                    
-                case DialogType.ShoppingCartDialog:
-                    return new ShoppingCartForm(item);
-                    
-                case DialogType.ShoppingCartItemDialog:
-                    return new ShoppingCartItemForm(item);                    
-                default:
-                    return  null;
-                    
-            }
-        }
-
-        public void eventButtonEdit(int id, ICustomBusiness business, DialogType dialogType)
-        {
-            IDialogs dialog = dialogFactory(id, business, dialogType);           
-            //verificar null
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                business.UpdateItem(dialog.Return);
-                dataGridView.DataSource = business.SelectList();
-            }
-        }
-
-        public void eventButtonDelete(int id, ICustomBusiness business)
-        {            
-            if (MessageBox.Show(string.Format("{0} {1} ?", AppStrings.STR_CONFIRM_DELETE, id), AppStrings.STR_DELETE, MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                business.DeleteItem(id);
-                dataGridView.DataSource = business.SelectList();
-            }            
-        }
-
-        public void eventButtonList()
-        {            
-            OnShowList(EventArgs.Empty);            
+            OnShowList(EventArgs.Empty);
         }
 
         private void OnShowList(EventArgs e)
         {
             ShowList?.Invoke(this, e);
         }
+
+
     }
 }

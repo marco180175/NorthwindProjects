@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace NorthwindBusiness.Src
 {
-    public class ProductsBusiness: ICustomBusiness
+    public class ProductsBusiness //: ICustomBusiness
     {
         private NorthwindProductsDAO productsDAO = new NorthwindProductsDAO();
 
-        public object SelectItem(int id)
+        public Product SelectItem(int id)
         {
             return productsDAO.ProductSelect(id);
         }
@@ -21,13 +21,22 @@ namespace NorthwindBusiness.Src
             return productsDAO.ProductsSelect(categoryID);
         }
 
-        public List<object> SelectList()
+        public List<Product> SelectList()
         {
-            List<ProductQuery> list = productsDAO.ProductsSelectQuery();            
-            return list.Cast<object>().ToList();
+            return productsDAO.ProductsSelect();             
         }
 
-        public List<ProductQuery> SelectList(string filter)
+        public List<Product> SelectList(string filter)
+        {
+            return productsDAO.ProductsSelect(filter);
+        }
+
+        public List<ProductQuery> SelectListQuery()
+        {
+            return productsDAO.ProductsSelectQuery();
+        }
+
+        public List<ProductQuery> SelectListQuery(string filter)
         {
             return productsDAO.ProductsSelectQuery(filter);
         }

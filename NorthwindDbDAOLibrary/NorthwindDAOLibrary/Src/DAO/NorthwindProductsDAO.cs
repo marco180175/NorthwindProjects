@@ -125,15 +125,25 @@ namespace NorthwindDAO.Src.DAO
             piList.Clear();
             piList.AddRange(type.GetProperties());
 
-            filter = "Products." + filter;
+            
             var table = new List<ProductQuery>();
             SqlConnection connection = OpenConnection();
             if (connection != null)
             {
-                var subQuery = new StringBuilder();
-                subQuery.Append(query.ToString());
-                subQuery.AppendFormat("WHERE {0}", filter);
-                string cmdText = subQuery.ToString();
+                string cmdText;
+                if (string.IsNullOrEmpty(filter))
+                {
+                    cmdText = query.ToString();
+                }
+                else
+                {
+                    filter = "Products." + filter;
+                    var subQuery = new StringBuilder();
+                    subQuery.Append(query.ToString());
+                    subQuery.AppendFormat("WHERE {0}", filter);
+                    cmdText = subQuery.ToString();
+                }
+                
                 using (SqlCommand command = new SqlCommand(cmdText, connection))
                 {
                     try

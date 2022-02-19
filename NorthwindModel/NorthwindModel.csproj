@@ -47,6 +47,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DataBrasilAttribute.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\FilterProducts.cs" />
     <Compile Include="Models\ModelProperties.cs" />
     <Compile Include="Models\NumeroBrasilAttribute.cs" />
     <Compile Include="Models\Order.cs" />

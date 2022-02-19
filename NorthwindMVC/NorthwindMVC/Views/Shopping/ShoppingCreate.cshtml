@@ -7,17 +7,6 @@
     Layout = "~/Views/Shared/_LayoutDefault.cshtml";
 }
 
-@{
-    var customers = new CustomersBusiness();
-    var table = customers.SelectList();
-    var list = new List<SelectListItem>();
-    list.Add(new SelectListItem() { Text = "Select...", Value = "0" });
-    foreach (var item in table)
-    {
-        list.Add(new SelectListItem() { Text = item.CompanyName, Value = item.CustomerID });
-    }
-}
-
 <h2>ShoppingCreate</h2>
 
 @using (Html.BeginForm())
@@ -31,19 +20,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CustomerID, list, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.CustomerID, (IEnumerable<SelectListItem>)ViewBag.Customers , new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Date, new { Class = "date" })
-                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
+        
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

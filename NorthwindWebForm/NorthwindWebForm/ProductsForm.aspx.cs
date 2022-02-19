@@ -16,7 +16,7 @@ namespace NorthwindWebForm
             if(!IsPostBack)
             {
                 var products = new ProductsBusiness();
-                GridView1.DataSource = products.SelectList();
+                GridView1.DataSource = products.SelectListQuery();
                 GridView1.DataBind();
 
                 ddlFilterName.Items.Add("None");
@@ -88,13 +88,13 @@ namespace NorthwindWebForm
                 filter = string.Format("{0}={1}", ddlFilterName.Text, ddlFilterValue.SelectedValue);
                 if (!string.IsNullOrEmpty(filter))
                 {                    
-                    GridView1.DataSource = products.SelectList(filter);
+                    GridView1.DataSource = products.SelectListQuery(filter);
                     GridView1.DataBind();
                 }
             }            
             else 
             {                
-                GridView1.DataSource = products.SelectList();
+                GridView1.DataSource = products.SelectListQuery();
                 GridView1.DataBind();
             }
         }

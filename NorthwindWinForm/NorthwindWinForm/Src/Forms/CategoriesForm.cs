@@ -29,20 +29,20 @@ namespace NorthwindWinForm.Src.Forms
             dataGridView1.DataSource = categories.SelectList();
             //
             drawDataGridViewButtonsManager = new DrawDataGridViewButtonsManager(dataGridView1);
-            drawDataGridViewButtonsManager.addEditButton();
-            drawDataGridViewButtonsManager.addDeleteButton();
+            drawDataGridViewButtonsManager.AddEditButton();
+            drawDataGridViewButtonsManager.AddDeleteButton();
         }
         
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int categoryID = Convert.ToInt32(dataGridView1[CategoryProperties.CATEGORY_ID, e.RowIndex].Value);
+            int id = Convert.ToInt32(dataGridView1[CategoryProperties.CATEGORY_ID, e.RowIndex].Value);
             if (dataGridView1.Columns[e.ColumnIndex].Name == AppStrings.STR_EDIT)
-            {                
-                drawDataGridViewButtonsManager.eventButtonEdit(categoryID, categories, DialogType.CategoryDialog);                                                    
+            {
+                EditCategory(id);
             }
             if (dataGridView1.Columns[e.ColumnIndex].Name == AppStrings.STR_DELETE)
             {
-                drawDataGridViewButtonsManager.eventButtonDelete(categoryID, categories);
+                DeleteCategory(id);
             }            
         }
 
@@ -58,7 +58,28 @@ namespace NorthwindWinForm.Src.Forms
 
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            drawDataGridViewButtonsManager.drawButtons( e);            
-        }        
+            drawDataGridViewButtonsManager.DrawButtons( e);            
+        }
+
+        private void EditCategory(int id)
+        {
+            var item = categories.SelectItem(id);
+            var dialog = new CategoryForm(item);
+            //verificar null
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                categories.UpdateItem(dialog.Return);
+                dataGridView1.DataSource = categories.SelectList();
+            }
+        }
+
+        public void DeleteCategory(int id)
+        {
+            if (MessageBox.Show(string.Format("{0} {1} ?", AppStrings.STR_CONFIRM_DELETE, id), AppStrings.STR_DELETE, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                categories.DeleteItem(id);
+                dataGridView1.DataSource = categories.SelectList();
+            }
+        }
     }
 }

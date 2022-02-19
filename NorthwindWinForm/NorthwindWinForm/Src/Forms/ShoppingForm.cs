@@ -31,9 +31,9 @@ namespace NorthwindWinForm.Src.Forms
             dataGridView1.DataSource = shoppingCartList.SelectList();
             //
             drawDataGridViewButtonsManager = new DrawDataGridViewButtonsManager(dataGridView1);
-            drawDataGridViewButtonsManager.addEditButton();
-            drawDataGridViewButtonsManager.addDeleteButton();
-            drawDataGridViewButtonsManager.addListButton(toolStripButton4_Click);           
+            drawDataGridViewButtonsManager.AddEditButton();
+            drawDataGridViewButtonsManager.AddDeleteButton();
+            drawDataGridViewButtonsManager.AddListButton(toolStripButton4_Click);           
         }
         //
         public event ShowListFormEventHandler ShowList;
@@ -70,7 +70,7 @@ namespace NorthwindWinForm.Src.Forms
 
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            drawDataGridViewButtonsManager.drawButtons(e);
+            drawDataGridViewButtonsManager.DrawButtons(e);
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -79,17 +79,39 @@ namespace NorthwindWinForm.Src.Forms
             {
                 int id = Convert.ToInt32(dataGridView1[ShoppingCartProperties.SHOPPINGCART_ID, e.RowIndex].Value);
                 if (dataGridView1.Columns[e.ColumnIndex].Name == AppStrings.STR_EDIT)
-                {                    
-                    drawDataGridViewButtonsManager.eventButtonEdit(id, shoppingCartList,DialogType.ShoppingCartDialog);
+                {
+                    EditShopping(id);
                 }
                 if (dataGridView1.Columns[e.ColumnIndex].Name == AppStrings.STR_DELETE)
                 {
-                    drawDataGridViewButtonsManager.eventButtonDelete(id, shoppingCartList);
+                    DeleteShopping(id);
                 }
                 if (dataGridView1.Columns[e.ColumnIndex].Name == AppStrings.STR_LIST)
                 { 
-                    drawDataGridViewButtonsManager.eventButtonList();
+                    drawDataGridViewButtonsManager.EventButtonList();
                 }                
+            }
+        }
+
+        private void EditShopping(int id)
+        {            
+            var item = shoppingCartList.SelectItem(id);
+            var dialog = new ShoppingCartForm(item);
+            //verificar null
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                shoppingCartList.UpdateItem(dialog.Return);
+                dataGridView1.DataSource = shoppingCartList.SelectList();
+            }
+        }
+
+        private void DeleteShopping(int id)
+        {
+            if (MessageBox.Show(string.Format("{0} {1} ?", AppStrings.STR_CONFIRM_DELETE, id), AppStrings.STR_DELETE, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                var item = shoppingCartList.SelectItem(id);
+                shoppingCartList.DeleteItem(id);
+                dataGridView1.DataSource = shoppingCartList.SelectList();
             }
         }
     }

@@ -24,6 +24,14 @@ namespace NorthwindMVC.Controllers
          */
         public ActionResult ShoppingCreate()
         {
+            var custumers = new CustomersBusiness();
+            var table = custumers.SelectList();
+            var list = new List<SelectListItem>();
+            list.Add(new SelectListItem() { Text = "Select...", Value = "0" });
+            foreach (var item in table)            
+                list.Add(new SelectListItem() { Text = item.CompanyName, Value = item.CustomerID });
+            ViewBag.Customers = list;
+            //
             var shoppingCart = new ShoppingCart();
             return View(shoppingCart);
         }
@@ -90,7 +98,7 @@ namespace NorthwindMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ShoppingDelete(ShoppingCart shoppingCart)
         {
-            shoppingCartList.Delete(shoppingCart.ShoppingCartID);
+            //shoppingCartList.Delete(shoppingCart.ShoppingCartID);
             return RedirectToAction("ShoppingIndex");
         }
         

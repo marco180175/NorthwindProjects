@@ -24,11 +24,11 @@ namespace NorthwindModel.Models
         {
             ShoppingCartID = shoppingCartID;
         }
-
-        public Int32 ShoppingCartID { get; set; }
-        
-        public String CustomerID { get; set; }//Cliente
         [Required]
+        public Int32 ShoppingCartID { get; set; }
+        [Required]
+        public String CustomerID { get; set; }//Cliente
+        
         //[DataBrasil(ErrorMessage = "Data inválida", DataRequerida = true)]
         //[DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}",ApplyFormatInEditMode = true)]
         //[DataType(DataType.Date)]

@@ -19,7 +19,7 @@ namespace NorthwindWebForm
             id = Convert.ToInt32(Request.QueryString["id"]);
             //
             if (id == 0)
-                product = new Product();
+                product = null;
             else
                 product = (Product)products.SelectItem(id);
             if (!IsPostBack)
@@ -81,15 +81,18 @@ namespace NorthwindWebForm
 
         private void SetProductToField()
         {
-            txbProductName.Text = product.ProductName;
-            ddlCategory.SelectedValue = product.CategoryID.ToString();
-            ddlSupplier.SelectedValue = product.SupplierID.ToString();
-            txbQuantityPerUnit.Text = product.QuantityPerUnit;
-            txbUnitPrice.Text = product.UnitPrice.ToString();
-            txbUnitsInStock.Text = product.UnitsInStock.ToString();
-            txbUnitsOnOrder.Text = product.UnitsOnOrder.ToString();
-            txbReorderLevel.Text = product.ReorderLevel.ToString();
-            ckbDiscontinued.Checked = product.Discontinued;
+            if (product != null)
+            {
+                txbProductName.Text = product.ProductName;
+                ddlCategory.SelectedValue = product.CategoryID.ToString();
+                ddlSupplier.SelectedValue = product.SupplierID.ToString();
+                txbQuantityPerUnit.Text = product.QuantityPerUnit;
+                txbUnitPrice.Text = product.UnitPrice.ToString();
+                txbUnitsInStock.Text = product.UnitsInStock.ToString();
+                txbUnitsOnOrder.Text = product.UnitsOnOrder.ToString();
+                txbReorderLevel.Text = product.ReorderLevel.ToString();
+                ckbDiscontinued.Checked = product.Discontinued;
+            }
         }
 
         private void GetFieldToProduct()
