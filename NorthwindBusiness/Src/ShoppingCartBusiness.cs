@@ -7,77 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace NorthwindBusiness.Src
-{    
-    public class ShoppingCartItemWrapper: IShoppingCartItem
+{
+    public class ShoppingCartItemExtend: ShoppingCartItem
     {
-        private ShoppingCartItem cartItem;
-        public ShoppingCartItemWrapper(ShoppingCartItem item)
-        {
-            cartItem = item;
-        }
-        public Int32 ShoppingCartItemID
-        {
-            get { return cartItem.ShoppingCartItemID; }
-            set { cartItem.ShoppingCartItemID = value; }
-        }
-        public Int32 ShoppingCartID
-        {
-            get { return cartItem.ShoppingCartID; }
-            set { cartItem.ShoppingCartID = value; }
-        }
-        public Int32 ProductID
-        {
-            get { return cartItem.ProductID; }
-            set { cartItem.ProductID = value; }
-        }
-        public Double Quantity
-        {
-            get { return cartItem.Quantity; }
-            set { cartItem.Quantity = value; }
-        }
-        public Decimal UnitPrice
-        {
-            get { return cartItem.UnitPrice; }
-            set { cartItem.UnitPrice = value; }
-        }
         public Double Total
         {
-            get { return (Double)(cartItem.Quantity * Convert.ToDouble(cartItem.UnitPrice)); }
+            get { return (Double)(Quantity * Convert.ToDouble(UnitPrice)); }
         }
     }
-
-    public class ShoppingCartWrapper//: IShoppingCart
-    {
-        private ShoppingCart cartItem;
-        public ShoppingCartWrapper(ShoppingCart item)
-        {
-            cartItem = item;
-        }        
-
-        public Int32 ShoppingCartID
-        {
-            get { return cartItem.ShoppingCartID; }
-            set { cartItem.ShoppingCartID = value; }
-        }
-        public String CustomerID
-        {
-            get { return cartItem.CustomerID; }
-            set { cartItem.CustomerID = value; }
-        }
-        public DateTime PurchaseDate
-        {
-            get { return cartItem.PurchaseDate.Value; }
-            set { cartItem.PurchaseDate = value; }
-        }
-        public string Description
-        {
-            get { return cartItem.Description; }
-            set { cartItem.Description = value; }
-        }
-
-        public int Count { get; set; }
-    }
-
     /*!
      * Lista de carrinho de compras
      */
@@ -92,7 +29,10 @@ namespace NorthwindBusiness.Src
         public List<ShoppingCart> SelectList()
         {
             var shoppingCartItemsDAO = new NorthwindShoppingCartItemsDAO();
-            return northwindDAO.ShoppingCartsSelect();            
+            List<ShoppingCart> list = northwindDAO.ShoppingCartsSelect();
+            foreach (var item in list)
+                item.Count = shoppingCartItemsDAO.ShoppingCartItemCount(item.ShoppingCartID);
+            return list;
         }
         /*!
          * Retorna carrinho 
@@ -129,7 +69,7 @@ namespace NorthwindBusiness.Src
     /*!
      * Carrinho de compras
      */
-    public class ShoppingCartBusiness : ICustomBusiness
+    public class ShoppingCartBusiness //: ICustomBusiness
     {
         private NorthwindShoppingCartItemsDAO northwindDAO = new NorthwindShoppingCartItemsDAO();
         private int shoppingCartID;
@@ -140,20 +80,21 @@ namespace NorthwindBusiness.Src
         /*!
          * Select ShoppingCartItem por shoppingCartItemID(chave)  
          */
-        public object SelectItem(int id)
-        {            
-            return northwindDAO.ShoppingCartItemSelect(id);
+        public ShoppingCartItemExtend SelectItem(int id)
+        {
+            ShoppingCartItem item = northwindDAO.ShoppingCartItemSelect(id);
+            return (ShoppingCartItemExtend)item;
         }
         /*!
          * Retorna lista de items pelo id do carrinho 
          */
-        public List<object> SelectList()
+        public List<ShoppingCartItemExtend> SelectList()
         {            
             var list = northwindDAO.ShoppingCartItemsSelect(shoppingCartID);
-            List<ShoppingCartItemWrapper> returnList = new List<ShoppingCartItemWrapper>();
+            List<ShoppingCartItemExtend> returnList = new List<ShoppingCartItemExtend>();
             foreach (var item in list)
-                returnList.Add(new ShoppingCartItemWrapper(item));
-            return returnList.Cast<object>().ToList();
+                returnList.Add(new ShoppingCartItemExtend());
+            return returnList.Cast<ShoppingCartItemExtend>().ToList();
         }
         /*!
          * Salva no banco

@@ -3,16 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NorthwindModel.Models
 {
-    public interface IShoppingCartItem
-    {
-        Int32 ShoppingCartItemID { get; set; }
-        Int32 ShoppingCartID { get; set; }        
-        Int32 ProductID { get; set; }
-        Double Quantity { get; set; }        
-        Decimal UnitPrice { get; set; }
-    }
-
-    public class ShoppingCartItem: IShoppingCartItem
+    public class ShoppingCartItem
     {
         public ShoppingCartItem()
         {
@@ -30,10 +21,6 @@ namespace NorthwindModel.Models
         public Double Quantity { get; set; }
 
         [Required(ErrorMessage = "Selecione preço unitario do produto")]
-        public Decimal UnitPrice { get; set; } 
-        
-        
-        
-        
+        public Decimal UnitPrice { get; set; }        
     }
 }

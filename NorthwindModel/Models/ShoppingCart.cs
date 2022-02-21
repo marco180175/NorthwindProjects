@@ -38,5 +38,6 @@ namespace NorthwindModel.Models
         [MaxLength(ErrorMessage = "Maximo 100 characters.")]
         public string Description { get; set; }
         
+        public int Count { get; set; }
     }
 }
