@@ -15,7 +15,7 @@ namespace NorthwindWinForm.Src.Forms
 {
     public partial class ShoppingItemForm : Form
     {
-        private ShoppingCartBusiness shoppingCartBusiness;
+        private ShoppingCartItemBusiness shoppingCartBusiness;
         private int shoppingCartID;
         private DrawDataGridViewButtonsManager drawDataGridViewButtonsManager;
         public ShoppingItemForm(Control parent,int shoppingCartID)
@@ -28,7 +28,7 @@ namespace NorthwindWinForm.Src.Forms
             this.Dock = DockStyle.Fill;
             //
             this.shoppingCartID = shoppingCartID;
-            shoppingCartBusiness = new ShoppingCartBusiness(shoppingCartID);
+            shoppingCartBusiness = new ShoppingCartItemBusiness(shoppingCartID);
             dataGridView1.DataSource = shoppingCartBusiness.SelectList();
             //
             drawDataGridViewButtonsManager = new DrawDataGridViewButtonsManager(dataGridView1);
@@ -43,9 +43,9 @@ namespace NorthwindWinForm.Src.Forms
             var form = new ShoppingCartItemForm(null);
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                var shoppingCartBusiness = new ShoppingCartBusiness(shoppingCartID);
-                shoppingCartBusiness.InsertItem(form.Return);
-                dataGridView1.DataSource = shoppingCartBusiness.SelectList();
+                //var shoppingCartBusiness = new ShoppingCartBusiness(shoppingCartID);
+                //shoppingCartBusiness.InsertItem(form.Return);
+                //dataGridView1.DataSource = shoppingCartBusiness.SelectList();
             }
         }
                 

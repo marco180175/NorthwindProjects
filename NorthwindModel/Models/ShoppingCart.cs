@@ -5,15 +5,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NorthwindModel.Models
 {
-    //public interface IShoppingCart
-    //{
-    //    Int32 ShoppingCartID { get; set; }
-    //    String CustomerID { get; set; }       
-    //    DateTime PurchaseDate { get; set; }        
-    //    string Description { get; set; }
-    //}
+    public interface IShoppingCart
+    {
+        Int32 ShoppingCartID { get; set; }
+        String CustomerID { get; set; }
+        DateTime PurchaseDate { get; set; }
+        string Description { get; set; }
+    }
 
-    public class ShoppingCart//: IShoppingCart
+    public class ShoppingCart: IShoppingCart
     {
         public ShoppingCart()
         {
@@ -31,13 +31,13 @@ namespace NorthwindModel.Models
         
         //[DataBrasil(ErrorMessage = "Data inválida", DataRequerida = true)]
         //[DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}",ApplyFormatInEditMode = true)]
-        //[DataType(DataType.Date)]
+        [DataType(DataType.Date)]
         //Data da compra
-        public DateTime? PurchaseDate { get; set; }
+        public DateTime PurchaseDate { get; set; }
 
-        [MaxLength(ErrorMessage = "Maximo 100 characters.")]
+        //[MaxLength(ErrorMessage = "Maximo 100 characters.")]
         public string Description { get; set; }
-        
-        public int Count { get; set; }
+
+        //public int Count { get; set; }
     }
 }

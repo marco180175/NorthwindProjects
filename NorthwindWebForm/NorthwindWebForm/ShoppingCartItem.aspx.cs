@@ -30,8 +30,8 @@ namespace NorthwindWebForm
                 //Carrega objeto para edição
                 if (shoppingCartItemID != -1)
                 {
-                    var shoppingCartBusiness = new ShoppingCartBusiness(shoppingCartID);
-                    var shoppingCartItem = (NorthwindModel.Models.ShoppingCartItem)shoppingCartBusiness.SelectItem(shoppingCartItemID);
+                    var shoppingCartBusiness = new ShoppingCartItemBusiness(shoppingCartID);
+                    var shoppingCartItem = shoppingCartBusiness.SelectItem(shoppingCartItemID);
                     tbQuantity.Text = shoppingCartItem.Quantity.ToString();
                     //Seleciona category
                     var product = (Product)products.SelectItem(shoppingCartItem.ProductID);
@@ -127,16 +127,16 @@ namespace NorthwindWebForm
                         shoppingCartItem.ProductID = product.ProductID;
                         shoppingCartItem.UnitPrice = product.UnitPrice;
                         shoppingCartItem.Quantity = Convert.ToInt32(tbQuantity.Text);
-                        var shoppingCartBusiness = new ShoppingCartBusiness(shoppingCartID);
+                        var shoppingCartBusiness = new ShoppingCartItemBusiness(shoppingCartID);
                         shoppingCartBusiness.InsertItem(shoppingCartItem);
                         Response.Redirect("ShoppingItem.aspx?id=" + shoppingCartID.ToString());
                     }
                     //Update current item
                     else
                     {
-                        var shoppingCartBusiness = new ShoppingCartBusiness(shoppingCartID);
+                        var shoppingCartBusiness = new ShoppingCartItemBusiness(shoppingCartID);
                         Product product = (Product)Session["product"];
-                        var shoppingCartItem = (NorthwindModel.Models.ShoppingCartItem)shoppingCartBusiness.SelectItem(shoppingCartItemID);
+                        var shoppingCartItem = shoppingCartBusiness.SelectItem(shoppingCartItemID);
                         shoppingCartItem.ProductID = product.ProductID;
                         shoppingCartItem.UnitPrice = product.UnitPrice;
                         shoppingCartItem.Quantity = Convert.ToInt32(tbQuantity.Text);

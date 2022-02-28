@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NorthwindModel.Models.ShoppingCartItem>
+﻿@model IEnumerable<NorthwindBusiness.Src.ShoppingCartItemExtend>
 
 @{
     ViewBag.Title = "ShoppingItemIndex";
@@ -25,7 +25,7 @@
             @Html.DisplayNameFor(model => model.UnitPrice)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Tolal)
+            @Html.DisplayNameFor(model => model.Total)
         </th>
         
         <th></th>
@@ -46,7 +46,7 @@
             @Html.DisplayFor(modelItem => item.UnitPrice)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Tolal)
+            @Html.DisplayFor(modelItem => item.Total)
         </td>        
         <td>
             @Html.ActionLink("Edit", "ShoppingItemEdit", new { @id1 = item.ShoppingCartItemID , @id2 = 0 }) |            

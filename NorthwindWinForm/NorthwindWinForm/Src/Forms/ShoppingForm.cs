@@ -17,7 +17,7 @@ namespace NorthwindWinForm.Src.Forms
 {
     public partial class ShoppingForm : Form
     {        
-        private ShoppingCartListBusiness shoppingCartList = new ShoppingCartListBusiness();
+        private ShoppingCartBusiness shoppingCartList = new ShoppingCartBusiness();
         private DrawDataGridViewButtonsManager drawDataGridViewButtonsManager;
         public ShoppingForm(Control parent)
         {

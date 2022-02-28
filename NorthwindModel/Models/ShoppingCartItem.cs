@@ -3,6 +3,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NorthwindModel.Models
 {
+    public interface IShoppingCartItem
+    { 
+     Int32 ShoppingCartItemID { get; set; }
+     Int32 ShoppingCartID { get; set; }    
+     Int32 ProductID { get; set; }    
+     Double Quantity { get; set; }    
+     Decimal UnitPrice { get; set; }
+    }
+
     public class ShoppingCartItem
     {
         public ShoppingCartItem()

@@ -18,7 +18,7 @@ namespace NorthwindMVC.Controllers
         public ActionResult ShoppingItemIndex(int id)
         {
             shoppingCartID = id;
-            var shoppingCartBusiness = new ShoppingCartBusiness(shoppingCartID);
+            var shoppingCartBusiness = new ShoppingCartItemBusiness(shoppingCartID);
             var list = shoppingCartBusiness.SelectList();
             return View(list);
         }
@@ -42,7 +42,7 @@ namespace NorthwindMVC.Controllers
         public ActionResult ShoppingItemCreateNew(ShoppingCartItem shoppingCartitem)
         {
             //validaçoes servidor
-            var shoppingCart = new ShoppingCartBusiness(shoppingCartID);
+            var shoppingCart = new ShoppingCartItemBusiness(shoppingCartID);
             if (shoppingCartitem.ProductID == 0)
             {
                 ModelState.AddModelError("ProductID", "Selecione id do produto...");
@@ -80,7 +80,7 @@ namespace NorthwindMVC.Controllers
         {
             ViewBag.ShoppingCartID = shoppingCartID;
                        
-            var shoppingCart = new ShoppingCartBusiness(shoppingCartID);
+            var shoppingCart = new ShoppingCartItemBusiness(shoppingCartID);
             //ShoppingCartItem item = shoppingCart.SelectItem(id1);
             //if (id2 != 0)
             //{
@@ -97,7 +97,7 @@ namespace NorthwindMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ShoppingItemEdit(ShoppingCartItem shoppingCartitem)
         {
-            var shoppingCart = new ShoppingCartBusiness(shoppingCartID);
+            var shoppingCart = new ShoppingCartItemBusiness(shoppingCartID);
             shoppingCart.InsertItem(shoppingCartitem);
             return RedirectToAction("ShoppingItemIndex", new { id = shoppingCartID });
         }

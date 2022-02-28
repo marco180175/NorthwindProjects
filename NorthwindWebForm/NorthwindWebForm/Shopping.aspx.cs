@@ -10,7 +10,7 @@ namespace NorthwindWebForm
 {
     public partial class Shopping : System.Web.UI.Page
     {
-        private ShoppingCartListBusiness shopingCartList = new ShoppingCartListBusiness();
+        private ShoppingCartBusiness shopingCartList = new ShoppingCartBusiness();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)

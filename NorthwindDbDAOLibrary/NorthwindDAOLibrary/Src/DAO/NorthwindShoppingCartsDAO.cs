@@ -89,19 +89,38 @@ namespace NorthwindDAO.Src.DAO
             return item;
         }
 
+        public void ShoppingCartUpdate(ShoppingCart item)
+        {
+            SqlConnection connection = OpenConnection();
+            if (connection != null)
+            {
+                string cmdText = BuildUpdateQuery(item, typeof(ShoppingCart), SHOPPING_CART_SHOPPING_CART_ID, SHOPPING_CART_TABLE_NAME);
+                using (var command = new SqlCommand(cmdText, connection))
+                {
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw ex;
+                    }
+                }
+                CloseConnection(connection);
+            }
+        }
         //public void ShoppingCartUpdate(ShoppingCart item)
         //{
         //    SqlConnection connection = OpenConnection();
         //    if (connection != null)
         //    {
-        //        string cmdText = BuildUpdateQuery(item, typeof(ShoppingCart), SHOPPING_CART_SHOPPING_CART_ID, SHOPPING_CART_TABLE_NAME);
-        //        using (var command = new SqlCommand(cmdText, connection))
-        //        {                    
+        //        using (var command = BuildUpdateCommand(connection, item, SHOPPING_CART_SHOPPING_CART_ID, SHOPPING_CART_TABLE_NAME))
+        //        {
         //            try
         //            {
         //                command.ExecuteNonQuery();
         //            }
-        //            catch (SqlException)
+        //            catch (SqlException ex)
         //            {
         //                throw;
         //            }
@@ -109,28 +128,6 @@ namespace NorthwindDAO.Src.DAO
         //        CloseConnection(connection);
         //    }
         //}
-        public void ShoppingCartUpdate(ShoppingCart item)
-        {
-            SqlConnection connection = OpenConnection();
-            if (connection != null)
-            {
-                var command = BuildUpdateCommand(connection, item, SHOPPING_CART_SHOPPING_CART_ID, SHOPPING_CART_TABLE_NAME);
-                
-                try
-                {
-                    command.ExecuteNonQuery();
-                }
-                catch (SqlException)
-                {
-                    throw;
-                }
-                finally
-                {
-                    command.Dispose();
-                }
-                CloseConnection(connection);
-            }
-        }
 
 
 
@@ -150,7 +147,7 @@ namespace NorthwindDAO.Src.DAO
                     }
                     catch (SqlException ex)
                     {
-                        throw;
+                        throw ex;
                     }
                 }
                 CloseConnection(connection);

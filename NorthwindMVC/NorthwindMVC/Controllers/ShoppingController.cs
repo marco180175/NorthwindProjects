@@ -10,27 +10,34 @@ namespace NorthwindMVC.Controllers
 {
     public class ShoppingController : Controller
     {
-        private ShoppingCartListBusiness shoppingCartList = new ShoppingCartListBusiness();
+        private ShoppingCartBusiness shoppingCartList = new ShoppingCartBusiness();
         /*!
          * Lista de produtos
          */
         public ActionResult ShoppingIndex()
         {
-            var list = shoppingCartList.SelectList();
+            List<ShoppingCartExtend> list = shoppingCartList.SelectList();
             return View(list);
         }
         /*!
-         * Cria novo produto 
+         * 
          */
-        public ActionResult ShoppingCreate()
+        private List<SelectListItem> CreateCustomerList()
         {
             var custumers = new CustomersBusiness();
             var table = custumers.SelectList();
             var list = new List<SelectListItem>();
             list.Add(new SelectListItem() { Text = "Select...", Value = "0" });
-            foreach (var item in table)            
+            foreach (var item in table)
                 list.Add(new SelectListItem() { Text = item.CompanyName, Value = item.CustomerID });
-            ViewBag.Customers = list;
+            return list;
+        }
+        /*!
+         * Cria novo produto 
+         */
+        public ActionResult ShoppingCreate()
+        {            
+            ViewBag.Customers = CreateCustomerList();
             //
             var shoppingCart = new ShoppingCart();
             return View(shoppingCart);
@@ -64,6 +71,7 @@ namespace NorthwindMVC.Controllers
 
         public ActionResult ShoppingEdit(int id)
         {
+            ViewBag.Customers = CreateCustomerList();
             var item = shoppingCartList.SelectItem(id);
             return View(item);
         }
@@ -98,7 +106,7 @@ namespace NorthwindMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ShoppingDelete(ShoppingCart shoppingCart)
         {
-            //shoppingCartList.Delete(shoppingCart.ShoppingCartID);
+            shoppingCartList.DeleteItem(shoppingCart.ShoppingCartID);
             return RedirectToAction("ShoppingIndex");
         }
         

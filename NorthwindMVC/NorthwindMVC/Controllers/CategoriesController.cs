@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NorthwindBusiness.Src;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,13 @@ namespace NorthwindMVC.Controllers
     public class CategoriesController : Controller
     {
         // GET: Categories
-        public ActionResult Index()
+        public ActionResult IndexCategories()
         {
-            return View();
+            var categories = new CategoriesBusiness();
+            var table = categories.SelectList();
+            return View(table);
         }
+
+
     }
 }

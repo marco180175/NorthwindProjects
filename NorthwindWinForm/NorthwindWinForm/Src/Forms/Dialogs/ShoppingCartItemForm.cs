@@ -14,7 +14,7 @@ using System.Windows.Forms;
 namespace NorthwindWinForm.Src.Forms.Dialogs
 {
     
-    public partial class ShoppingCartItemForm : Form, IDialogs
+    public partial class ShoppingCartItemForm : Form//, IDialogs
     {
         private ShoppingCartItem shoppingCartItem;
         private int productID;
@@ -66,7 +66,7 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
             dataGridView1.Columns["QuantityPerUnit"].Visible = false;
         }
 
-        public object Return { get { return shoppingCartItem; } }
+        public ShoppingCartItem Return { get { return shoppingCartItem; } }
 
         private void button1_Click(object sender, EventArgs e)
         {            

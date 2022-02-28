@@ -121,7 +121,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
-    <Compile Include="Controllers\DataTableController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ShoppingController.cs" />
@@ -170,8 +169,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\DataTable\ProductsTable.cshtml" />
-    <Content Include="Views\Shopping\ShoppingIndex.cshtml" />
     <Content Include="Views\Shopping\ShoppingEdit.cshtml" />
     <Content Include="Views\Shopping\ShoppingDelete.cshtml" />
     <Content Include="Views\Shared\_LayoutDefault.cshtml" />
@@ -184,11 +181,12 @@
     <Content Include="Views\Products\IndexProducts.cshtml" />
     <Content Include="Views\Products\EditProduct.cshtml" />
     <Content Include="Views\Products\FilterProducts.cshtml" />
+    <Content Include="Views\Categories\IndexCategories.cshtml" />
+    <Content Include="Views\Shopping\ShoppingIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Categories\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

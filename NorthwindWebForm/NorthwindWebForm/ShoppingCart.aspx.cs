@@ -12,7 +12,7 @@ namespace NorthwindWebForm
     public partial class ShoppingCart : System.Web.UI.Page
     {
         private const string RETURN_PAGE = "Shopping.aspx";
-        private ShoppingCartListBusiness shoppingCartList = new ShoppingCartListBusiness();
+        private ShoppingCartBusiness shoppingCartList = new ShoppingCartBusiness();
         private int shoppingCartID;
         private NorthwindModel.Models.ShoppingCart shoppingCart;
         protected void Page_Load(object sender, EventArgs e)

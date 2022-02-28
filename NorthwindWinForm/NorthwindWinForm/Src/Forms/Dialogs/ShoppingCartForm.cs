@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace NorthwindWinForm.Src.Forms.Dialogs
 {
-    public partial class ShoppingCartForm : Form, IDialogs
+    public partial class ShoppingCartForm : Form//, IDialogs
     {
         private const string STR_SELECT = "Select...";
         private ShoppingCart shoppingCart;
@@ -44,7 +44,7 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
             }
         }
 
-        public object Return { get { return shoppingCart; } }
+        public ShoppingCart Return { get { return shoppingCart; } }
 
         private void btOk_Click(object sender, EventArgs e)
         {

@@ -15,7 +15,7 @@ namespace NorthwindWebForm
         protected void Page_Load(object sender, EventArgs e)
         {
             shoppingCartID = Convert.ToInt32(Request.QueryString["id"]);
-            var shoppingCartBusiness = new ShoppingCartBusiness(shoppingCartID);
+            var shoppingCartBusiness = new ShoppingCartItemBusiness(shoppingCartID);
             if (!IsPostBack)
             {                
                 GridView1.DataSource = shoppingCartBusiness.SelectList();
@@ -40,7 +40,7 @@ namespace NorthwindWebForm
             }
             if (e.CommandName == "Delete")
             {
-                var shoppingCartBusiness = new ShoppingCartBusiness(shoppingCartID);
+                var shoppingCartBusiness = new ShoppingCartItemBusiness(shoppingCartID);
                 int shoppingCartItemID = Convert.ToInt32(e.CommandArgument);
                 shoppingCartBusiness.DeleteItem(shoppingCartItemID);
                 GridView1.DataSource = shoppingCartBusiness.SelectList();
