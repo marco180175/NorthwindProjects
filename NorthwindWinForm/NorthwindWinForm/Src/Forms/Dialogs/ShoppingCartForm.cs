@@ -36,7 +36,7 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
             {
                 ShoppingCart cart = (ShoppingCart)item;
                 shoppingCart.ShoppingCartID = cart.ShoppingCartID;                
-                dtpDate.Value = cart.PurchaseDate.Value;
+                dtpDate.Value = cart.PurchaseDate;
                 tbDescription.Text = cart.Description;
                 //seleciona customer no combobox
                 int index = list.FindIndex(x => x.CustomerID == cart.CustomerID);                

@@ -1,0 +1,111 @@
+﻿@model IEnumerable<NorthwindModel.Models.ProductQuery>
+
+@{
+    ViewBag.Title = "IndexProducts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>IndexProducts</h2>
+<p>
+
+</p>
+<table class="filter" width="100%" border="1">
+    <tr>
+        <td>
+            @Html.ActionLink("Create New", "CreateProduct")
+        </td>
+        <td>Filter name:</td>
+        <td>
+          
+        </td>
+        <td>Filter value</td>
+        <td>
+            
+        </td>
+        <td>
+            @Html.ActionLink("Filter", "FilterProducts")
+            <!--<input type="button" id="btn" value="teste" onclick='appliFilter()' />-->
+
+        </td>
+    </tr>
+</table>
+
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Supplier)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitsInStock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitsOnOrder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Discontinued)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Supplier)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitsInStock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitsOnOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Discontinued)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditProduct", new { id = item.ProductID }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    
+
+    <script type="text/javascript">
+
+            function appliFilter()
+            {
+                var prop = $("#FilterList").text()
+                var val = prop.split('\n')
+                var idx = $("#FilterList").val()
+                alert(val[idx])
+            }
+
+    </script>
+}

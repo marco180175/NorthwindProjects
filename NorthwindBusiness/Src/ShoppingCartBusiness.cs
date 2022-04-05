@@ -126,10 +126,10 @@ namespace NorthwindBusiness.Src
         /*!
          * Select ShoppingCartItem por shoppingCartItemID(chave)  
          */
-        public ShoppingCartItemExtend SelectItem(int id)
+        public ShoppingCartItem SelectItem(int id)
         {
-            ShoppingCartItem item = northwindDAO.ShoppingCartItemSelect(id);
-            return new ShoppingCartItemExtend(item);
+             return  northwindDAO.ShoppingCartItemSelect(id);
+            //return new ShoppingCartItemExtend(item);
         }
         /*!
          * Retorna lista de items pelo id do carrinho 

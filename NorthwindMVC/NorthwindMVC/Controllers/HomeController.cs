@@ -1,5 +1,4 @@
-﻿using NorthwindBusiness.Src;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,9 +10,7 @@ namespace NorthwindMVC.Controllers
     {
         public ActionResult Index()
         {
-            var categories = new CategoriesBusiness();
-            var table = categories.SelectList();
-            return View(table);
+            return View();
         }
 
         public ActionResult About()
@@ -22,7 +19,12 @@ namespace NorthwindMVC.Controllers
 
             return View();
         }
+        public ActionResult AboutPopup()
+        {
+            ViewBag.Message = "Your application description page.";
 
+            return PartialView();
+        }
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

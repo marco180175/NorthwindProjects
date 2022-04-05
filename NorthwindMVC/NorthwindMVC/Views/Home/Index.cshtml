@@ -1,54 +1,47 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    
 }
 
 <div class="jumbotron">
     <h1>Northwind application ASP.NET MVC</h1>
 </div>
-<div style="padding:5px 0;">
-    @*@{
-        List<SelectListItem> list = new List<SelectListItem>();
-        list.Add(new SelectListItem { Value = "0", Text = "All" });
-        foreach (var item in Model)
-        {
-            list.Add(new SelectListItem { Value = item.CategoryID.ToString(), Text = item.CategoryName });
-        }
-        @Html.DropDownList("ddlCategory1", list, new { @class = "form-control" })
-    }*@
 
-</div>
-<div style="width:100%;">
-    @*@{
-        WebGrid grid = new WebGrid(Model);
-        @grid.GetHtml(
-             tableStyle: "grid",
-             fillEmptyRows: false,
-             headerStyle: "gvHeading",
-             alternatingRowStyle: "gvAlternateRow",
-             rowStyle: "gvRow",
-             footerStyle: "gvFooter",
-             mode: WebGridPagerModes.All,             
-             columns: new[] {
-             grid.Column("CategoryID", header: "Category ID "),
-             grid.Column("CategoryName", header: "Category Name "),                          
-             grid.Column("Description", header: "Description ")
-                             })
-    }*@
+<div>
+    <a href="#" class="btn btn-default btnDetalhes" data-value="0">ShowModalPopup</a>
 </div>
 
-<div id="DivToAppendPartialView"></div>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <div id="modalContent"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-<script type="text/javascript">
-    function OpenCreatePopup() {
-        var div = $("#DivToAppendPartialView");
-        div.load("/Produtos/Create", function () {
-            div.dialog({
-                modal: true,
-                width: 500,
-                height: 438,
-                title: "Incluir Novo Produto",
-                resizable: false
+@section scripts{
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>   
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajaxSetup({ cache: false });
+            $(".btnDetalhes").click(function () {
+                //var id = $(this).data("value");
+                $("#modalContent").load("/Home/AboutPopup", function () {
+                    $('#myModal').modal("show");
+                });
             });
         });
-    }
-</script>
+    </script>
+
+}

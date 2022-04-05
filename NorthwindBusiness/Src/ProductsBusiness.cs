@@ -18,7 +18,7 @@ namespace NorthwindBusiness.Src
         }
         public List<Product> SelectListByCategory(int categoryID)
         {
-            return productsDAO.ProductsSelect(categoryID);
+            return productsDAO.ProductsSelectByCategoryID(categoryID);
         }
 
         public List<Product> SelectList()
@@ -39,6 +39,23 @@ namespace NorthwindBusiness.Src
         public List<ProductQuery> SelectListQuery(string filter)
         {
             return productsDAO.ProductsSelectQuery(filter);
+        }
+
+        public List<ProductInfo> SelectListInfo(int categoryID)
+        {
+            List<Product> list1;
+
+            if (categoryID == 0)
+                list1 = productsDAO.ProductsSelect();
+            else
+                list1 = productsDAO.ProductsSelectByCategoryID(categoryID);
+
+            var list2 = new List<ProductInfo>();
+            foreach (var item in list1)
+                list2.Add(new ProductInfo() { ProductID = item.ProductID,
+                    ProductName = item.ProductName, 
+                    UnitPrice = item.UnitPrice });
+            return list2;
         }
 
         public void InsertItem(object item)

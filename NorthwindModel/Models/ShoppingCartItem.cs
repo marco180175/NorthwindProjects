@@ -26,10 +26,10 @@ namespace NorthwindModel.Models
         [Required(ErrorMessage ="Selecione id do produto")]
         public Int32 ProductID { get; set; }
 
-        [Range(minimum:1,maximum:10,ErrorMessage ="Valor deve estar entre 1 e 10")]        
+        //[Range(minimum:1,maximum:10,ErrorMessage ="Valor deve estar entre 1 e 10")]        
         public Double Quantity { get; set; }
 
-        [Required(ErrorMessage = "Selecione preço unitario do produto")]
+        //[Required(ErrorMessage = "Selecione preço unitario do produto")]
         public Decimal UnitPrice { get; set; }        
     }
 }

@@ -54,10 +54,10 @@ namespace NorthwindMVC.Controllers
             {
                 ModelState.AddModelError("CustomerID", "Selecione opção a customer.");
             }            
-            //if (!string.IsNullOrEmpty(shoppingCart.Description) && shoppingCart.Description.Length > 100)
-            //{
-            //    ModelState.AddModelError("Description", "Descrição deve ter no maximo 100 caracteres.");
-            //}
+            if (shoppingCart.Description.Length > 100)
+            {
+                ModelState.AddModelError("Description", "Descrição deve ter no maximo 100 caracteres.");
+            }
             if (ModelState.IsValid)
             {
                 shoppingCartList.InsertItem(shoppingCart);
@@ -65,6 +65,7 @@ namespace NorthwindMVC.Controllers
             }
             else
             {
+                ViewBag.Customers = CreateCustomerList();
                 return View("ShoppingCreate", shoppingCart);                
             }
         }
@@ -109,9 +110,10 @@ namespace NorthwindMVC.Controllers
             shoppingCartList.DeleteItem(shoppingCart.ShoppingCartID);
             return RedirectToAction("ShoppingIndex");
         }
-        
-        
 
         
+
+
+
     }
 }

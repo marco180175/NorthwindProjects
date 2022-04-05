@@ -35,16 +35,12 @@
                 @Html.DisplayFor(modelItem => item.UnitPrice)
             </td>           
             <td>
-                @{
-                    if (ViewBag.SourceID == 0)
-                    { 
-                        <input type="button" value="Select" onclick="selectProductToCreate('@item.ProductID')" />
-                    }
-                    else
-                    { 
-                        <input type="button" value="Select" onclick="selectProductToEdit('@ViewBag.ShoppingCartItemID','@item.ProductID')" />
-                    }
-                }                
+               
+                       <input type="button" value="Select" onclick="selectProductToCreate('@item.ProductID')" />
+                   
+                        @*<input type="button" value="Select" onclick="selectProductToEdit('@ViewBag.ShoppingCartItemID','@item.ProductID')" />*@
+                    
+                            
             </td>
         </tr>
     }
@@ -52,14 +48,14 @@
 @section Scripts {
     <script type="text/javascript">
         //
-        function selectProductToCreate(id) {
-            var url = "/ShoppingItem/ShoppingItemCreate?id=" + id;
-            location.href = url;
-        }
-        //
-        function selectProductToEdit(id1, id2) {
-            var url = "/ShoppingItem/ShoppingItemEdit?id1=" + id1 + "&id2=" + id2;
-            location.href = url;
-        }
+        //function selectProductToCreate(id) {
+        //    var url = "/ShoppingItem/ShoppingItemSetProductID?id=" + id;
+        //    location.href = url;
+        //}
+        ////
+        //function selectProductToEdit(id1, id2) {
+        //    var url = "/ShoppingItem/ShoppingItemEdit?id1=" + id1 + "&id2=" + id2;
+        //    location.href = url;
+        //}
     </script>
 }

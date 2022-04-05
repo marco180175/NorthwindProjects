@@ -8,7 +8,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{45C915C6-A98A-4B09-974E-E0B16507C16F}</ProjectGuid>
+    <ProjectGuid>{8522A224-DD59-4C88-A6D7-9F8C481E35A6}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -142,7 +142,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\CustomValidacoes.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -152,8 +151,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\Mascaras\jquery.mask.js" />
-    <Content Include="Scripts\Mascaras\Mascaras.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -169,20 +166,22 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shopping\ShoppingEdit.cshtml" />
-    <Content Include="Views\Shopping\ShoppingDelete.cshtml" />
     <Content Include="Views\Shared\_LayoutDefault.cshtml" />
-    <Content Include="Views\Shopping\ShoppingCreate.cshtml" />
-    <Content Include="Views\ShoppingItem\ShoppingItemIndex.cshtml" />
+    <Content Include="Views\Home\AboutPopup.cshtml" />
     <Content Include="Views\ShoppingItem\ShoppingItemCreate.cshtml" />
-    <Content Include="Views\ShoppingItem\ShoppingItemProductList.cshtml" />
     <Content Include="Views\ShoppingItem\ShoppingItemEdit.cshtml" />
+    <Content Include="Views\ShoppingItem\ShoppingItemIndex.cshtml" />
+    <Content Include="Views\ShoppingItem\ShoppingItemProductList.cshtml" />
+    <Content Include="Views\Shopping\ShoppingCreate - bkp.cshtml" />
+    <Content Include="Views\Shopping\ShoppingCreate.cshtml" />
+    <Content Include="Views\Shopping\ShoppingDelete.cshtml" />
+    <Content Include="Views\Shopping\ShoppingEdit.cshtml" />
+    <Content Include="Views\Shopping\ShoppingIndex.cshtml" />
+    <Content Include="Views\Categories\IndexCategories.cshtml" />
     <Content Include="Views\Products\CreateProduct.cshtml" />
-    <Content Include="Views\Products\IndexProducts.cshtml" />
     <Content Include="Views\Products\EditProduct.cshtml" />
     <Content Include="Views\Products\FilterProducts.cshtml" />
-    <Content Include="Views\Categories\IndexCategories.cshtml" />
-    <Content Include="Views\Shopping\ShoppingIndex.cshtml" />
+    <Content Include="Views\Products\IndexProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -227,9 +226,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>26384</DevelopmentServerPort>
+          <DevelopmentServerPort>49785</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:26384/</IISUrl>
+          <IISUrl>http://localhost:49785/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NorthwindBusiness.Src;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,12 @@ namespace NorthwindTelerikMVC.Controllers
 {
     public class HomeController : Controller
     {
+        private ShoppingCartBusiness shoppingCartBusiness = new ShoppingCartBusiness();
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            var list = shoppingCartBusiness.SelectList();
+            return View(list);
         }
     }
 }

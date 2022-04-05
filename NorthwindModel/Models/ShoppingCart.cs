@@ -35,9 +35,9 @@ namespace NorthwindModel.Models
         //Data da compra
         public DateTime PurchaseDate { get; set; }
 
-        //[MaxLength(ErrorMessage = "Maximo 100 characters.")]
+        [MaxLength(ErrorMessage = "Maximo 100 characters.")]//usa datanotation para validação mvc
         public string Description { get; set; }
 
-        //public int Count { get; set; }
+        
     }
 }

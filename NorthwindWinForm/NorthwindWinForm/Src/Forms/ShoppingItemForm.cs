@@ -15,7 +15,7 @@ namespace NorthwindWinForm.Src.Forms
 {
     public partial class ShoppingItemForm : Form
     {
-        private ShoppingCartItemBusiness shoppingCartBusiness;
+        private ShoppingCartItemBusiness shoppingCartItemBusiness;
         private int shoppingCartID;
         private DrawDataGridViewButtonsManager drawDataGridViewButtonsManager;
         public ShoppingItemForm(Control parent,int shoppingCartID)
@@ -28,8 +28,8 @@ namespace NorthwindWinForm.Src.Forms
             this.Dock = DockStyle.Fill;
             //
             this.shoppingCartID = shoppingCartID;
-            shoppingCartBusiness = new ShoppingCartItemBusiness(shoppingCartID);
-            dataGridView1.DataSource = shoppingCartBusiness.SelectList();
+            shoppingCartItemBusiness = new ShoppingCartItemBusiness(shoppingCartID);
+            dataGridView1.DataSource = shoppingCartItemBusiness.SelectList();
             //
             drawDataGridViewButtonsManager = new DrawDataGridViewButtonsManager(dataGridView1);
             drawDataGridViewButtonsManager.AddEditButton();
@@ -43,9 +43,9 @@ namespace NorthwindWinForm.Src.Forms
             var form = new ShoppingCartItemForm(null);
             if (form.ShowDialog(this) == DialogResult.OK)
             {
-                //var shoppingCartBusiness = new ShoppingCartBusiness(shoppingCartID);
-                //shoppingCartBusiness.InsertItem(form.Return);
-                //dataGridView1.DataSource = shoppingCartBusiness.SelectList();
+                var shoppingCartItemBusiness = new ShoppingCartItemBusiness(shoppingCartID);
+                shoppingCartItemBusiness.InsertItem(form.Return);
+                dataGridView1.DataSource = shoppingCartItemBusiness.SelectList();
             }
         }
                 
@@ -72,13 +72,13 @@ namespace NorthwindWinForm.Src.Forms
 
         private void EditShopping(int id)
         {
-            var item = shoppingCartBusiness.SelectItem(id);
+            var item = (IShoppingCartItem)shoppingCartItemBusiness.SelectItem(id);
             var dialog = new ShoppingCartItemForm(item);
             //verificar null
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                shoppingCartBusiness.UpdateItem(dialog.Return);
-                dataGridView1.DataSource = shoppingCartBusiness.SelectList();
+                shoppingCartItemBusiness.UpdateItem(dialog.Return);
+                dataGridView1.DataSource = shoppingCartItemBusiness.SelectList();
             }
         }
 
@@ -86,8 +86,8 @@ namespace NorthwindWinForm.Src.Forms
         {
             if (MessageBox.Show(string.Format("{0} {1} ?", AppStrings.STR_CONFIRM_DELETE, id), AppStrings.STR_DELETE, MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                shoppingCartBusiness.DeleteItem(id);
-                dataGridView1.DataSource = shoppingCartBusiness.SelectList();
+                shoppingCartItemBusiness.DeleteItem(id);
+                dataGridView1.DataSource = shoppingCartItemBusiness.SelectList();
             }
         }
     }

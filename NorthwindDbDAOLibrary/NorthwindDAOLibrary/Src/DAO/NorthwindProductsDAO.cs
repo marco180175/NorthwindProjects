@@ -190,7 +190,7 @@ namespace NorthwindDAO.Src.DAO
         /*!
          * 
          */
-        public List<Product> ProductsSelect(int categoryID)
+        public List<Product> ProductsSelectByCategoryID(int categoryID)
         {
             var table = new List<Product>();
             SqlConnection connection = OpenConnection();

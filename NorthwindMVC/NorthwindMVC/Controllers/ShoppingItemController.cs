@@ -23,63 +23,64 @@ namespace NorthwindMVC.Controllers
             return View(list);
         }
 
-        public ActionResult ShoppingItemCreate(int? id)
+        private void SetupView()
         {
-            ViewBag.ShoppingCartID = shoppingCartID;            
-            ShoppingCartItem item = new ShoppingCartItem();
-            if (id.HasValue)
-            {
-                var products = new ProductsBusiness();
-                var product = products.SelectItem(id.Value);
-                //item.ProductID = product.ProductID;
-                //item.UnitPrice = product.UnitPrice;
-            }
+            ViewBag.ShoppingCartID = shoppingCartID;
+            var list1 = CreateCategoryList();
+            list1[indexCategory].Selected = true;
+            ViewBag.Categories = list1;
+            ViewBag.Products = CreateProductList(indexCategory);
+        }
+
+        public ActionResult ShoppingItemCreate()
+        {
+            SetupView();
+            var item = new ShoppingCartItem();            
             return View(item);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ShoppingItemCreateNew(ShoppingCartItem shoppingCartitem)
+        public ActionResult ShoppingItemCreate(ShoppingCartItem shoppingCartitem)
         {
             //validaçoes servidor
-            var shoppingCart = new ShoppingCartItemBusiness(shoppingCartID);
+            var shoppingCartItemBusiness = new ShoppingCartItemBusiness(shoppingCartID);
             if (shoppingCartitem.ProductID == 0)
             {
-                ModelState.AddModelError("ProductID", "Selecione id do produto...");
+                ModelState.AddModelError("ProductID", "Selecione um produto.");
             }
-            if (shoppingCartitem.UnitPrice == 0)
-            {
-                ModelState.AddModelError("UnitPrice", "Selecione preço unitario do produto...");
+            if (shoppingCartitem.Quantity == 0)
+            {                
+                ModelState.AddModelError("Quantity", "Especifique a quantidade.");
             }
             if (ModelState.IsValid)
             {
-                shoppingCart.InsertItem(shoppingCartitem);
+                var productBusiness = new ProductsBusiness();
+                var product = productBusiness.SelectItem(shoppingCartitem.ProductID);
+                shoppingCartitem.UnitPrice = product.UnitPrice;
+                shoppingCartitem.ShoppingCartID = shoppingCartID;
+                shoppingCartItemBusiness.InsertItem(shoppingCartitem);
                 return RedirectToAction("ShoppingItemIndex", new { id = shoppingCartID });
             }
             else
             {
+                SetupView();
                 return View("ShoppingItemCreate", shoppingCartitem);
             }
         }
 
-        public ActionResult ShoppingItemProductList(int id1, int id2, int id3)
-        {
-            ViewBag.SourceID = id2;
-            ViewBag.ShoppingCartItemID = id3; 
-            var products = new ProductsBusiness();
-            List<Product> list =new List<Product>();
-            
-            //if (id1 == 0)
-            //    list = products.SelectList();
-            //else
-            //    list = products.SelectListByCategory(id1);
-            return View(list);
-        }
-
         public ActionResult ShoppingItemEdit(int id1, int id2)
         {
+            //ShoppingCartItem item = new ShoppingCartItem();
+            //if (id.HasValue)
+            //{
+            //    var products = new ProductsBusiness();
+            //    var product = products.SelectItem(id.Value);
+            //    //item.ProductID = product.ProductID;
+            //    //item.UnitPrice = product.UnitPrice;
+            //}
             ViewBag.ShoppingCartID = shoppingCartID;
-                       
+
             var shoppingCart = new ShoppingCartItemBusiness(shoppingCartID);
             //ShoppingCartItem item = shoppingCart.SelectItem(id1);
             //if (id2 != 0)
@@ -100,6 +101,56 @@ namespace NorthwindMVC.Controllers
             var shoppingCart = new ShoppingCartItemBusiness(shoppingCartID);
             shoppingCart.InsertItem(shoppingCartitem);
             return RedirectToAction("ShoppingItemIndex", new { id = shoppingCartID });
+        }
+        
+        private static int indexCategory = 0;
+
+        public ActionResult ShoppingItemSetProductID(int id)
+        {
+            indexCategory = id;            
+            return RedirectToAction("ShoppingItemCreate");            
+        }
+
+        [HttpGet]
+        public JsonResult ShoppingItemSetProductIdJson(int id)
+        {
+            indexCategory = id;            
+            var list = CreateProductList(indexCategory);
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<SelectListItem> CreateCategoryList()
+        {
+            var category = new CategoriesBusiness();
+            var table = category.SelectList();
+            var list = new List<SelectListItem>();
+            list.Add(new SelectListItem() { Text = "All", Value = "0" });
+            foreach (var item in table)
+                list.Add(new SelectListItem() { Text = item.CategoryName, Value = item.CategoryID.ToString() });
+            return list;
+        }
+
+        public List<SelectListItem> CreateProductList(int id)
+        {
+            var products = new ProductsBusiness();
+            List<Product> list1 = new List<Product>();
+            if (id == 0)
+                list1 = products.SelectList();
+            else
+                list1 = products.SelectListByCategory(id);
+            var list2 = new List<SelectListItem>();
+            list2.Add(new SelectListItem() { Text = "Select", Value = "0" });
+            foreach (var item in list1)
+                list2.Add(new SelectListItem() { Text = item.ProductID.ToString("000") +"-"+ item.ProductName + "[" + item.UnitPrice + "]", Value = item.ProductID.ToString() });
+            return list2;
+        }
+
+        [HttpGet]
+        public JsonResult GetProductInfo(int id)
+        {
+            var products = new ProductsBusiness();
+            var list = products.SelectListInfo(id);
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }

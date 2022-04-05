@@ -28,7 +28,7 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
             //
             if (item == null)
             {
-                productID = -1;                
+                productID = 0;                
                 numericUpDown1.Value = 0;
                 fEdit = false;
                
@@ -49,9 +49,10 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
                 var table = categories.SelectList();
                 comboBox1.Items.Add("All");
                 comboBox1.Items.AddRange(table.ToArray());
-                int index = table.FindIndex(x => ((Category)x).CategoryID == ((Product)product).CategoryID);
+                int index = table.FindIndex(x => x.CategoryID == product.CategoryID);
                 comboBox1.SelectedIndex = index + 1;                
-            }            
+            }
+            
         }
 
         private void ShoppingCartItemForm_Load(object sender, EventArgs e)
@@ -64,15 +65,35 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
             dataGridView1.Columns["UnitsInStock"].Visible = false;
             dataGridView1.Columns["Discontinued"].Visible = false;
             dataGridView1.Columns["QuantityPerUnit"].Visible = false;
+            for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
+                dataGridView1.SelectedRows[i].Selected = false;
         }
 
         public ShoppingCartItem Return { get { return shoppingCartItem; } }
-
-        private void button1_Click(object sender, EventArgs e)
-        {            
-            var product = (Product)products.SelectItem(productID);
-            if (product != null)
+        private bool isValidate=true;
+        private List<string> listValidate = new List<string>();
+        private new void Validate()
+        {
+            listValidate.Clear();
+            isValidate = true;
+            if (productID == 0)
             {
+                listValidate.Add("Selecione produto");
+                isValidate = false;
+            }
+            if (numericUpDown1.Value == 0)
+            {
+                listValidate.Add("Qunatidade deve ser maior que zero");
+                isValidate = false;
+            }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Validate();
+            if(isValidate)
+            { 
+                var product = (Product)products.SelectItem(productID);
+            
                 shoppingCartItem.ProductID = product.ProductID;
                 shoppingCartItem.UnitPrice = product.UnitPrice;
                 shoppingCartItem.Quantity = Convert.ToDouble(numericUpDown1.Value);
@@ -80,10 +101,12 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
             }
             else
             {
-                MessageBox.Show(string.Format("productid {0} não encontrado", productID));
+                var validationSumary = new ValidateSummaryDialog(listValidate);
+                validationSumary.ShowDialog(this);                
             }
+            
         }
-
+        
         private void button2_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
@@ -106,18 +129,27 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
             DataView dataView = new DataView(table);
             dataView.Sort = table.Columns[0].ColumnName;
             dataGridView1.DataSource = dataView;
+
             if (fEdit)
             {
                 CurrencyManager currencyManager = (CurrencyManager)dataGridView1.BindingContext[dataView];
                 currencyManager.Position = dataView.Find(productID);
                 fEdit = false;
             }
+            else
+            {
+                for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
+                    dataGridView1.SelectedRows[i].Selected = false;
+                productID = 0;
+            }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             productID = Convert.ToInt32(dataGridView1["ProductID", e.RowIndex].Value);
-            label1.Text ="ProductID = "+ productID.ToString();
-        }        
+            //label1.Text ="ProductID = "+ productID.ToString();
+        }
+
+        
     }    
 }

@@ -47,8 +47,8 @@ namespace NorthwindWebForm
         private void SetPropertiesItem()
         {
             ddlCustomerID.SelectedValue = shoppingCart.CustomerID;
-            if (shoppingCart.PurchaseDate.HasValue)
-                tbDate.Text = shoppingCart.PurchaseDate.Value.ToString("dd/MM/yyyy");
+            //if (shoppingCart.PurchaseDate.HasValue)
+                tbDate.Text = shoppingCart.PurchaseDate.ToString("dd/MM/yyyy");
             tbDescription.Text = shoppingCart.Description;
         }
 

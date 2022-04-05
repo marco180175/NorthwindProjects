@@ -3,25 +3,12 @@
 @using NorthwindModel.Models;
 @{
     ViewBag.Title = "ShoppingItemCreate";
+    Layout = "~/Views/Shared/_LayoutDefault.cshtml";//necessario para funcionamento dos scripts
 }
 
-@{
-    var category = new CategoriesBusiness();
-    var table = category.SelectList();
-    var list = new List<SelectListItem>();
-    list.Add(new SelectListItem() { Text = "All", Value = "0" });
-    foreach (var item in table)
-    {
-        list.Add(new SelectListItem() { Text = item.CategoryName, Value = item.CategoryID.ToString() });
-    }
-    //
-    //ViewBag.ShoppingCart = Model;
-}
+<h2>ShoppingItemCreate. ShoppingCartID = @ViewBag.ShoppingCartID</h2>
 
-<h2>ShoppingItemCreate</h2>
-
-
-@using (Html.BeginForm("ShoppingItemCreateNew", "ShoppingItem", FormMethod.Post))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -29,45 +16,72 @@
         <h4>ShoppingCartItem</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.Label("Category", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ddlCategoryID", list, new { htmlAttributes = new { @class = "form-control" } })                
-                <span id="teste">0</span>
-                <br />
-                <input id="ProductList" type="button" value="Product List" />
-            </div>
-        </div>
+        <table id="table1" border="1" style="width:100%">
+            <tr>
+                <td style="width:50%" valign="top">
+                    <table id="tableLeft" border="1" style="width:100%">
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    @Html.Label("Category", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("ddlCategoryID", (IEnumerable<SelectListItem>)ViewBag.Categories, new { required = "required", @onchange = "ddlCategoryID_Change();" })
+                                        <span id="teste">0</span>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProductID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProductID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UnitPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+                                    @Html.LabelFor(model => model.ProductID, htmlAttributes: new { @class = "control-label col-md-2", value = ViewBag.ProductID })
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.ProductID, (IEnumerable<SelectListItem>)ViewBag.Products, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <div class="form-group">
+                                    @*<div class="col-md-offset-2 col-md-10">*@
+                                    <input id="button1" type="submit" value="Create" class="btn btn-default" />
+                                    @*</div>*@
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td valign="top">
+                    <div style="overflow: auto; height:400px;">
+                        <table id="tableRight" border="1" class="table table-bordered table-condensed table-hover table-striped">
+                            <thead>
+                                <tr style="height:25px;">
+                                    <th>ProductID</th>
+                                    <th>ProductName</th>
+                                    <th>UnitPrice</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableRightBody" style="overflow: auto;  height: 200px;"></tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 }
 
@@ -76,33 +90,62 @@
 </div>
 
 @section Scripts {
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
-
-        $("#ddlCategoryID").change(function () {
-            var value = $(this).val();
-            $("#teste").html(value);
+        $(window).on("load", function () {
+            ddlCategoryID_Change();
         });
-        //
-        $("#ProductList").click(function () {
+
+        function ddlCategoryID_Change() {
             var value = $("#ddlCategoryID").val();
-            var url = "/ShoppingItem/ShoppingItemProductList?id1=" + value + "&id2=0&id3=0";
-            location.href = url;
 
-            //alert('clique no botão com valor ' + url);
-            //$.ajax({
-            //    url: "/Shopping/ShoppingItemProductList",
-            //    data: { id: value },
-            //    type: "GET",
-            //    dataType: "html",
-            //    success: function (dados) {
-            //        },
-            //    error: function (erro) {
-            //        alert('erro ='+erro);}
-            //});
+            $("#teste").html(value);
+            getProductList(value);
 
-        });
+            $.ajax({
+                url: "/ShoppingItem/ShoppingItemSetProductIdJson",
+                data: { id: value },
+                type: "GET",
+                dataType: "json",
+                success: function (result) {
+                    $('#ProductID').empty();
+                    $.each(result, function (i, item) {
+                        $("#ProductID").append('<option value="' + item.Value + '">' +
+                            item.Text + '</option>');
+                    });
+
+                },
+                error: function (error) {
+                    alert('error =' + error);
+                }
+            });
+
+
+        }
+
+        function getProductList(value) {
+            $(document).ready(function () {
+                
+                //Call EmpDetails jsonResult Method
+                $.getJSON("/ShoppingItem/GetProductInfo/?id=" + value,
+                    function (json) {
+                        var tr;
+                        //Append each row to html table
+                        $('#tableRightBody').empty();
+                        for (var i = 0; i < json.length; i++) {
+                            tr = $('<tr/>');
+                            tr.append("<td>" + json[i].ProductID + "</td>");
+                            tr.append("<td>" + json[i].ProductName + "</td>");
+                            tr.append("<td>" + json[i].UnitPrice + "</td>");
+                            $('#tableRightBody').append(tr);
+                        }
+                    });
+            });
+        }
+
     </script>
 }
 

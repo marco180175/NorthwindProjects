@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NorthwindModel.Models.ShoppingCart>
+﻿@model IEnumerable<NorthwindBusiness.Src.ShoppingCartExtend>
 
 @{
     ViewBag.Title = "Index";
@@ -15,15 +15,14 @@
             @Html.DisplayNameFor(model => model.CustomerID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.DisplayNameFor(model => model.PurchaseDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
-        </th>
+        </th>        
         <th>
             @Html.DisplayNameFor(model => model.Count)
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -32,7 +31,7 @@
             @Html.DisplayFor(modelItem => item.CustomerID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Date)
+            @Html.DisplayFor(modelItem => item.PurchaseDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
