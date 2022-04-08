@@ -182,6 +182,7 @@
     <Content Include="Views\Products\EditProduct.cshtml" />
     <Content Include="Views\Products\FilterProducts.cshtml" />
     <Content Include="Views\Products\IndexProducts.cshtml" />
+    <Content Include="Views\ShoppingItem\ProductListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
