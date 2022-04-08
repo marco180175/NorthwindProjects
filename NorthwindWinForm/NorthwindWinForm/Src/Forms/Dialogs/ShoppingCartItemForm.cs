@@ -24,18 +24,20 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
         public ShoppingCartItemForm(object item)
         {
             InitializeComponent();
-            shoppingCartItem = new ShoppingCartItem();            
+            shoppingCartItem = new ShoppingCartItem();
+            //
+            var table = categories.SelectList();            
+            table.Insert(0, new Category() { CategoryName = "All", CategoryID = 0 });
+            comboBox1.DataSource = table;
+            comboBox1.DisplayMember = "CategoryName";
+            comboBox1.ValueMember = "CategoryID";
             //
             if (item == null)
             {
-                productID = 0;                
+                productID = 0;
+                txtProductID.Text = productID.ToString();
                 numericUpDown1.Value = 0;
-                fEdit = false;
-               
-                var table = categories.SelectList();
-                comboBox1.Items.Add("All");
-                comboBox1.Items.AddRange(table.ToArray());                
-                comboBox1.SelectedIndex = 0;
+                fEdit = false;                
             }
             else
             {
@@ -45,26 +47,14 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
                 shoppingCartItem.ProductID = cartItem.ProductID;
                 numericUpDown1.Value = Convert.ToDecimal(cartItem.Quantity);
                 fEdit = true;
-                var product = products.SelectItem(productID);
-                var table = categories.SelectList();
-                comboBox1.Items.Add("All");
-                comboBox1.Items.AddRange(table.ToArray());
+                var product = products.SelectItem(productID);                
                 int index = table.FindIndex(x => x.CategoryID == product.CategoryID);
                 comboBox1.SelectedIndex = index + 1;                
-            }
-            
+            }            
         }
 
         private void ShoppingCartItemForm_Load(object sender, EventArgs e)
-        {           
-            dataGridView1.Columns["CategoryID"].Visible = false;
-            dataGridView1.Columns["ProductID"].Visible = true;
-            dataGridView1.Columns["SupplierID"].Visible = false;
-            dataGridView1.Columns["ReorderLevel"].Visible = false;
-            dataGridView1.Columns["UnitsOnOrder"].Visible = false;
-            dataGridView1.Columns["UnitsInStock"].Visible = false;
-            dataGridView1.Columns["Discontinued"].Visible = false;
-            dataGridView1.Columns["QuantityPerUnit"].Visible = false;
+        {            
             for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
                 dataGridView1.SelectedRows[i].Selected = false;
         }
@@ -115,17 +105,12 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             products = new ProductsBusiness();
-            DataTable table;
-            if (comboBox1.SelectedIndex == 0)
-            {
-                var list = products.SelectList();
-                table = CollectionHelper.ConvertTo<Product>(list.Cast<Product>().ToList());
-            }
-            else
-            {
-                Category category = (Category)comboBox1.SelectedItem;
-                table = CollectionHelper.ConvertTo<Product>(products.SelectListByCategory(category.CategoryID));
-            }
+            DataTable table;            
+            
+            Category category = (Category)comboBox1.SelectedItem;
+            var list = products.SelectListInfo(category.CategoryID);
+            table = CollectionHelper.ConvertTo<ProductInfo>(list.Cast<ProductInfo>().ToList());
+            
             DataView dataView = new DataView(table);
             dataView.Sort = table.Columns[0].ColumnName;
             dataGridView1.DataSource = dataView;
@@ -147,7 +132,7 @@ namespace NorthwindWinForm.Src.Forms.Dialogs
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             productID = Convert.ToInt32(dataGridView1["ProductID", e.RowIndex].Value);
-            //label1.Text ="ProductID = "+ productID.ToString();
+            txtProductID.Text = productID.ToString();
         }
 
         
